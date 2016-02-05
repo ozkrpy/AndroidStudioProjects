@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 5. Collapsing toolbar
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
-        collapsingToolbarLayout.setTitle("ATC");
+        collapsingToolbarLayout.setTitle("Solicitudes");
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
