@@ -5,7 +5,9 @@
     <string name="drawer_close">Close</string>
     <string name="ingreso">Ingreso a usuarios</string>
     <string name="user">Usuario: </string>
-    <string name="user_hint">Ingrese su usuario</string>
+    <string name="user_hint">Usuario</string>
     <string name="pass">Contraseña: </string>
-    <string name="pass_hint">Ingrese su contraseña</string>
+    <string name="pass_hint">Contraseña</string>
+    <string name="login_button">Ingresar</string>
+
 </resources>
