@@ -1,5 +1,6 @@
 package org.ruffineo.workflowmanager;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -8,16 +9,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MasterActivity extends AppCompatActivity {
 
-    private static final String TAG = "AplikaLOG";
+    private static final String TAG = "WorkFlowLOG";
+    private String[] listaRecuperada;
 
     // 1. Toolbar
     private Toolbar toolbar;
@@ -30,7 +36,7 @@ public class MasterActivity extends AppCompatActivity {
 
     // 4. Creamos un ListView para simplificar
     ListView lista;
-    static final String[] Grupo_A = new String[] {
+    static final String[] Solicitudes = new String[]{
             "Lista Vacia"
     };
 
@@ -58,8 +64,15 @@ public class MasterActivity extends AppCompatActivity {
 
         // 4 ListView
         lista = (ListView) findViewById(R.id.lista);
-        ListAdapter adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Grupo_A);
+        ListAdapter adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Solicitudes);
         lista.setAdapter(adaptador);
+
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                escribeLog("se hizo clic en el item: " + lista.getItemAtPosition(position));
+            }
+        });
 
         // 5. Collapsing toolbar
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
@@ -70,10 +83,14 @@ public class MasterActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Se abrira a la aplicacion de MAILS", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+
+        //Invoca al WebService para recuperar la lista
+        ListarSolicitudes lista = new ListarSolicitudes();
+        lista.execute();
     }
 
     @Override
@@ -97,4 +114,36 @@ public class MasterActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class ListarSolicitudes extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            WebService ws = new WebService();
+            listaRecuperada = ws.solicitudesPendientes("oscar","recuperaListaSolicitudes");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (listaRecuperada != null) {
+                ListAdapter adaptador = new ArrayAdapter<String>(MasterActivity.this, android.R.layout.simple_list_item_1, listaRecuperada);
+                lista.setAdapter(adaptador);
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+    }
+
+    private void escribeLog(String texto) {
+        Log.i(TAG, texto);
+    }
+
+    private void notificaError(String mensaje) {
+        Toast.makeText(MasterActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+    }
+
 }
