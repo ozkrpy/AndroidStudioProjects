@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         protected Void doInBackground(Void... params) {
             escribeLog("entro al doInBackground ValidarDatos");
             WebService ws = new WebService();
+            ws.consultaUsuario("texto","texto","texto");
             String cadenaRetorno = ws.validarUsuarioCadena(user, pass, method);
             if (cadenaRetorno.equals("OK")) {
                 validado = "OK";
