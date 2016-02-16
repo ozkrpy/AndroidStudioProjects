@@ -13,137 +13,118 @@ import android.util.Log;
 
 public class Deserialization {
 
+    private static final String TAG = "DeSerializer";
 
     @SuppressWarnings("unchecked")
-    public  ArrayList SoapDeserializeArray(Class<?> itemClass,SoapObject object) {
+    public ArrayList SoapDeserializeArray(Class<?> itemClass, SoapObject object) {
 
+        ArrayList arrayList = new ArrayList();
 
-        ArrayList arrayList=new ArrayList();
-
-        for(int i=0;i<object.getPropertyCount();i++){
+        for (int i = 0; i < object.getPropertyCount(); i++) {
             try {
-                Object newObject=itemClass.getConstructor(SoapObject.class).newInstance(((SoapObject)object.getProperty(i)));
+                Object newObject = itemClass.getConstructor(SoapObject.class).newInstance(((SoapObject) object.getProperty(i)));
                 arrayList.add(newObject);
             } catch (InstantiationException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                escribeLog("Instantiation: " + e.getMessage());
             } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                escribeLog("Illegal Access: " + e.getMessage());
             } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                escribeLog("Illegal Argument: " + e.getMessage());
             } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                escribeLog("Invocation Target: " + e.getMessage());
             } catch (NoSuchMethodException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                escribeLog("No Such Method: " + e.getMessage());
             }
         }
 
-        return   arrayList;
+        return arrayList;
 
     }
 
-    public  <T> void SoapDeserilize(T item,SoapObject object){
+    public <T> void SoapDeserilize(T item, SoapObject object) {
 
-        Field[] fields=item.getClass().getDeclaredFields();
-        //Log.d("fieldsNum",Integer.toString(fields.length));
+        Field[] fields = item.getClass().getDeclaredFields();
 
         for (Field field : fields) {
             try {
-                Log.d(field.getName(),field.getType().getName());
+                //Log.d(field.getName(), field.getType().getName());
+                escribeLog("Etiqueta: " + field.getName() + ", Tipo: " + field.getType().getName());
 
-                if(field.getType().getName()==String.class.getName())
-                {
-
-
+                if (field.getType().getName() == String.class.getName()) {
                     field.set(
-                            item,object.getProperty(field.getName()).toString()
+                            item, object.getProperty(field.getName()).toString()
                     );
 
 
-                }
-                else if(field.getType().getName()==Integer.class.getName()||field.getType().getName()==int.class.getName())
-                {
+                } else if (field.getType().getName() == Integer.class.getName() || field.getType().getName() == int.class.getName()) {
 
-                    Log.d("3","int");
+                    //Log.d("3", "int");
+                    escribeLog("3 int");
                     field.set(
-                            item,Integer.parseInt(object.getProperty(field.getName()).toString())
+                            item, Integer.parseInt(object.getProperty(field.getName()).toString())
                     );
 
 
-                }
-
-                else if(field.getType().getName()==Float.class.getName())
-                {
-                    Log.d("4","float")	;
+                } else if (field.getType().getName() == Float.class.getName()) {
+                    //Log.d("4", "float");
+                    escribeLog("4 float");
                     field.set(
-                            item,Float.parseFloat(object.getProperty(field.getName()).toString())
+                            item, Float.parseFloat(object.getProperty(field.getName()).toString())
                     );
 
 
-                }
-
-                else if(field.getType().getName()==Double.class.getName())
-                {
+                } else if (field.getType().getName() == Double.class.getName()) {
 
                     field.set(
-                            item,Double.parseDouble(object.getProperty(field.getName()).toString())
+                            item, Double.parseDouble(object.getProperty(field.getName()).toString())
                     );
 
 
-                }
-
-                else if(field.getType().getName()==Boolean.class.getName())
-                {
+                } else if (field.getType().getName() == Boolean.class.getName()) {
 
                     field.set(
-                            item,Boolean.parseBoolean((object.getProperty(field.getName()).toString()))
+                            item, Boolean.parseBoolean((object.getProperty(field.getName()).toString()))
                     );
 
 
-                }
+                } else if (List.class.isAssignableFrom(field.getType())) {
+                    //Log.d("array", field.getGenericType().toString());
 
-
-                else if( List.class.isAssignableFrom(field.getType()))
-                {
-                    Log.d("array", field.getGenericType().toString());
-                    SoapObject fieldArray=(SoapObject)(object.getProperty(field.getName()));
+                    SoapObject fieldArray = (SoapObject) (object.getProperty(field.getName()));
 
                     Log.d("array", "1");
-                    ParameterizedType parameterizedType =(ParameterizedType)field.getGenericType();
-                    Class genericClass=(Class)(parameterizedType.getActualTypeArguments()[0]);
+                    ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
+                    Class genericClass = (Class) (parameterizedType.getActualTypeArguments()[0]);
                     Log.d("array", "2");
                     //声明Arraylist以备之后初始化传入参数
-                    ArrayList list=new ArrayList();
+                    ArrayList list = new ArrayList();
                     Log.d("array", "2.2");
-                    for (int i=0;i<fieldArray.getPropertyCount();i++) {
+                    for (int i = 0; i < fieldArray.getPropertyCount(); i++) {
                         Log.d("array", "2.8");
-                        Object newObject = genericClass.getConstructor(SoapObject.class).newInstance((SoapObject)(fieldArray.getProperty(i)));
+                        Object newObject = genericClass.getConstructor(SoapObject.class).newInstance((SoapObject) (fieldArray.getProperty(i)));
                         Log.d("array", "3");
                         list.add(newObject);
                         Log.d("array", "4");
                     }
-                    field.set(item,list);
-                }
-
-
-
-                else {
-                    Class class1=field.getType();
-                    Object newObject=class1.getConstructor(SoapObject.class).newInstance((SoapObject)(object.getProperty(field.getName())));
+                    field.set(item, list);
+                } else {
+                    Class class1 = field.getType();
+                    Object newObject = class1.getConstructor(SoapObject.class).newInstance((SoapObject) (object.getProperty(field.getName())));
                     field.set(item, newObject);
 
 
                 }
 
             } catch (Exception e) {
-                Log.d("FieldNotFound:", " "+e.getMessage());
+                Log.d("FieldNotFound:", " " + e.getMessage());
             }
 
 
         }
     }
+
+    private void escribeLog(String texto) {
+        Log.i(TAG, texto);
+    }
+
 }
