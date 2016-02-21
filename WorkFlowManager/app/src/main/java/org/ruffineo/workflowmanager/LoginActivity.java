@@ -8,21 +8,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String TAG = "WorkFlowLOG";
+    private static final String TAG = "LOGIN_LOG";
 
     private EditText editTextUser;
     private EditText editTextPass;
     private Button buttonIngresar;
+    private ProgressBar progressBarEjecucion;
 
     private String user;
     private String pass;
     private String method;
     private String validado = "NO";
-
 
 
     @Override
@@ -38,6 +39,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonIngresar = (Button) findViewById(R.id.button_ingresar);
         buttonIngresar.setOnClickListener(LoginActivity.this);
 
+        progressBarEjecucion = (ProgressBar) findViewById(R.id.progressBar_ejecucion);
+
     }
 
     @Override
@@ -49,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             user = editTextUser.getText().toString().trim();
             pass = editTextPass.getText().toString().trim();
 
-            if (((user.length() > 0) && (pass.length() > 0)) || (!user.equals("") && (!pass.equals(""))) )  {
+            if (((user.length() > 0) && (pass.length() > 0)) || (!user.equals("") && (!pass.equals("")))) {
                 method = "ValidarLogin";
                 ValidarDatos validarDatos = new ValidarDatos();
                 validarDatos.execute();
@@ -68,15 +71,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-    private class ValidarDatos extends AsyncTask <Void, Void, Void> {
+    private class ValidarDatos extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {
             escribeLog("entro al doInBackground ValidarDatos");
+            /*
             WebService ws = new WebService();
-            ws.consultaUsuario("texto","texto","texto");
-            String cadenaRetorno = ws.validarUsuarioCadena(user, pass, method);
+            method = "validarUsuarios";
+            String cadenaRetorno = ws.consultaUsuario(user, pass, method);
+            escribeLog("Recupero del WS, cadenaRetorno: " + cadenaRetorno);
             if (cadenaRetorno.equals("OK")) {
+                validado = "OK";
+            } else {
+                validado = "ER";
+            }
+            */
+            method = "validaUsuarioObjeto";
+            WebService ws = new WebService();
+            Respuesta respuesta = ws.consultaUsuarioObjeto(user, pass, method);
+            escribeLog("recupero objeto respuesta - Codigo: " + respuesta.getCodigo() + " mensaje: " + respuesta.getMensaje() + " referencia: " + respuesta.getReferencia());
+            if (respuesta.getCodigo() == 1) {
                 validado = "OK";
             } else {
                 validado = "ER";
@@ -88,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         protected void onPreExecute() {
             super.onPreExecute();
             escribeLog("entro al onPreExecute ValidarDatos");
+            progressBarEjecucion.setVisibility(View.VISIBLE);
 
         }
 
@@ -95,9 +111,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             escribeLog("entro al onPostExecute ValidarDatos");
+            progressBarEjecucion.setVisibility(View.INVISIBLE);
             if (validado.equals("OK")) {
                 Intent i = new Intent(LoginActivity.this, MasterActivity.class);
                 startActivity(i);
+                finish();
             } else {
                 notificaError("Usuario/Contraseña no validos.");
             }

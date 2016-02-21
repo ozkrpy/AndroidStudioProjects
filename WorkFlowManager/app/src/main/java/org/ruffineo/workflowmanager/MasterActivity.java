@@ -20,10 +20,15 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class MasterActivity extends AppCompatActivity {
 
-    private static final String TAG = "WorkFlowLOG";
+    private static final String TAG = "MAIN_LOG";
+
     private String[] listaRecuperada;
+    private String method;
+    private List listaRecuperadaWS;
 
     // 1. Toolbar
     private Toolbar toolbar;
@@ -118,16 +123,18 @@ public class MasterActivity extends AppCompatActivity {
     private class ListarSolicitudes extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
+            method = "recuperaLista";
             WebService ws = new WebService();
-            listaRecuperada = ws.solicitudesPendientes("oscar","recuperaListaSolicitudes");
+            listaRecuperadaWS = ws.recuperaLista("oscar","oscar", method);
+            escribeLog("recupero de la clase WS lista: " + listaRecuperadaWS.toString());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if (listaRecuperada != null) {
-                ListAdapter adaptador = new ArrayAdapter<String>(MasterActivity.this, android.R.layout.simple_list_item_1, listaRecuperada);
+            if (listaRecuperadaWS != null) {
+                ListAdapter adaptador = new ArrayAdapter<String>(MasterActivity.this, android.R.layout.simple_list_item_1, listaRecuperadaWS);
                 lista.setAdapter(adaptador);
             }
         }

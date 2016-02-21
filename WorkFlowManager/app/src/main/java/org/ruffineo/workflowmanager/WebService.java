@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
@@ -17,20 +18,11 @@ import java.util.List;
  */
 public class WebService {
 
-    private static final String TAG = "WorkFlowLOG";
+    private static final String TAG = "WEBSERVICE_LOG";
 
-    private static final String NAMESPACE = "http://wspersonascedulaimagen/";
-    private static final String IP = "apitest.authorize.net/";
-    private static final String URL = "https://" + IP + "soap/v1/Service.asmx?wsdl";
-    private static final String SOAP_ACTION = "https://api.authorize.net/soap/v1/AuthenticateTest";
-    private static final String METHOD_NAME = "AuthenticateTest";
-
-    /**
-    private static final String NAMESPACE = "https://api.authorize.net/soap/v1/";
-    private static final String URL ="https://apitest.authorize.net/soap/v1/Service.asmx?wsdl";
-    private static final String SOAP_ACTION = "https://api.authorize.net/soap/v1/AuthenticateTest";
-    private static final String METHOD_NAME = "AuthenticateTest";
-    */
+    private static final String NAMESPACE = "http://servicios.ws/";
+    private static final String IP = "192.168.1.26:9999/";
+    private static final String URL = "http://" + IP + "WebApps/Servicios?WSDL";
 
     public String validarUsuarioCadena(String user, String pass, String method) {
         if (user.equals("oscar") && (pass.equals("oscar"))) {
@@ -50,18 +42,29 @@ public class WebService {
 
     public String consultaUsuario (String user, String pass, String method) {
         String respuesta = "NO";
+
+        String METHOD_NAME = method;
+        String SOAP_ACTION = NAMESPACE + METHOD_NAME;
+
+        escribeLog("Method name: " + method);
         SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-        request.addProperty("name","44vmMAYrhjfhj66fhJN");
-        request.addProperty("transactionKey","9MDQ7fghjghjh53H48k7e7n");
+        escribeLog("Request : " + request.toString());
+        request.addProperty("user", user);
+        request.addProperty("pass", pass);
+        escribeLog("Properties added: " + request.toString());
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
+        escribeLog("Envelope: " + envelope.toString());
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
         try {
             androidHttpTransport.call(SOAP_ACTION, envelope);
-            //SoapPrimitive  resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+            escribeLog("Transport: " + androidHttpTransport.toString());
+            SoapPrimitive resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
             //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
-
-            SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
+            if (resultsRequestSOAP != null) {
+                respuesta = resultsRequestSOAP.toString();
+            }
+            //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
             escribeLog("Recupero: " + resultsRequestSOAP.toString());
 
         } catch (IOException e) {
@@ -75,6 +78,92 @@ public class WebService {
 
         return respuesta;
     }
+
+    public Respuesta consultaUsuarioObjeto (String user, String pass, String method) {
+        Respuesta respuesta = new Respuesta(0, "ER", "se inicializo correctamente en la APP");
+
+        String METHOD_NAME = method;
+        String SOAP_ACTION = NAMESPACE + METHOD_NAME;
+
+        escribeLog("Method name: " + method);
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+        escribeLog("Request : " + request.toString());
+        request.addProperty("user", user);
+        request.addProperty("pass", pass);
+        escribeLog("Properties added: " + request.toString());
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        escribeLog("Envelope: " + envelope.toString());
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try {
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            escribeLog("Transport: " + androidHttpTransport.toString());
+            //SoapPrimitive resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
+            //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
+            SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
+            if (resultsRequestSOAP != null) {
+                Respuesta respuestaObjeto = new Respuesta(resultsRequestSOAP);
+                escribeLog("recupero objeto respuesta - Codigo: " + respuestaObjeto.getCodigo() + " mensaje: " + respuestaObjeto.getMensaje() + " referencia: " + respuestaObjeto.getReferencia());
+                respuesta = respuestaObjeto;
+            }
+            //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
+            escribeLog("Recupero: " + resultsRequestSOAP.toString());
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            escribeLog(e.getMessage());
+        } catch (XmlPullParserException e) {
+            //e.printStackTrace();
+            escribeLog(e.getMessage());
+        }
+
+        return respuesta;
+    }
+
+    public List recuperaLista (String user, String pass, String method) {
+        List respuesta = null;
+
+        String METHOD_NAME = method;
+        String SOAP_ACTION = NAMESPACE + METHOD_NAME;
+
+        escribeLog("Method name: " + method);
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+        escribeLog("Request : " + request.toString());
+        request.addProperty("user", user);
+        request.addProperty("pass", pass);
+        escribeLog("Properties added: " + request.toString());
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        escribeLog("Envelope: " + envelope.toString());
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try {
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            escribeLog("Transport: " + androidHttpTransport.toString());
+            escribeLog("envelope response: " + envelope.getResponse().toString());
+            try {
+                List resultsRequestSOAP = (List) envelope.getResponse();
+                //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
+                //SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
+                if (resultsRequestSOAP != null) {
+                    respuesta = (List) resultsRequestSOAP;
+                }
+                //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
+                escribeLog("Recupero: " + resultsRequestSOAP.toString());
+            } catch (Exception e) {
+                escribeLog("Error al castear resultado: " + e.getMessage());
+            }
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            escribeLog(e.getMessage());
+        } catch (XmlPullParserException e) {
+            //e.printStackTrace();
+            escribeLog(e.getMessage());
+        }
+
+        return respuesta;
+    }
+
 
     private void escribeLog(String texto) {
         Log.i(TAG, texto);

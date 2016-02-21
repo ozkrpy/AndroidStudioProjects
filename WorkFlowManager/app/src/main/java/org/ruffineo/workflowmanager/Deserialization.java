@@ -13,7 +13,7 @@ import android.util.Log;
 
 public class Deserialization {
 
-    private static final String TAG = "DeSerializer";
+    private static final String TAG = "DESERIAL_LOG";
 
     @SuppressWarnings("unchecked")
     public ArrayList SoapDeserializeArray(Class<?> itemClass, SoapObject object) {
@@ -92,19 +92,19 @@ public class Deserialization {
 
                     SoapObject fieldArray = (SoapObject) (object.getProperty(field.getName()));
 
-                    Log.d("array", "1");
+                    escribeLog("array 1");
                     ParameterizedType parameterizedType = (ParameterizedType) field.getGenericType();
                     Class genericClass = (Class) (parameterizedType.getActualTypeArguments()[0]);
-                    Log.d("array", "2");
+                    escribeLog("array 2");
                     //声明Arraylist以备之后初始化传入参数
                     ArrayList list = new ArrayList();
-                    Log.d("array", "2.2");
+                    escribeLog("array 2.2");
                     for (int i = 0; i < fieldArray.getPropertyCount(); i++) {
-                        Log.d("array", "2.8");
+                        escribeLog("array 2.8");
                         Object newObject = genericClass.getConstructor(SoapObject.class).newInstance((SoapObject) (fieldArray.getProperty(i)));
-                        Log.d("array", "3");
+                        escribeLog("array 3");
                         list.add(newObject);
-                        Log.d("array", "4");
+                        escribeLog("array 4");
                     }
                     field.set(item, list);
                 } else {
@@ -116,7 +116,7 @@ public class Deserialization {
                 }
 
             } catch (Exception e) {
-                Log.d("FieldNotFound:", " " + e.getMessage());
+                escribeLog("FieldNotFound: " + e.getMessage());
             }
 
 
