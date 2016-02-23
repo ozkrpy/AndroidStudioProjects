@@ -2,275 +2,261 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
+    <!-- titulo principal de la pagina -->
     <TextView
         style="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/tarea_titulo"
-        android:textStyle="bold"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:paddingLeft="10dp">
+        android:paddingTop="10dp"
+        android:text="@string/tarea_titulo"
+        android:textStyle="bold" />
 
-        <TableRow>
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_numeroSolicitud"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tarea_numeroSolicitud"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_persona"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tarea_codigoPersona"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separador" />
-
-            <TextView
-                android:id="@+id/tarea_nombrePersona"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_iniciado"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tarea_iniciado"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_referencia"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tarea_referencia"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_tipoSolicitud"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tarea_tipoSolicitudCodigo"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separador" />
-
-            <TextView
-                android:id="@+id/tarea_tipoSolicitudDescripcion"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
-    </TableLayout>
-
+    <!-- separador de vistas -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
+    <!-- NUMERO DE SOLICITUD ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_numeroSolicitud"
+        android:textStyle="bold" />
+
+    <!-- NUMERO DE SOLICITUD CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_numeroSolicitud"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
+
+    <!-- CODIGO DE PERSONA ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_persona"
+        android:textStyle="bold" />
+
+    <!-- CODIGO DE PERSONA CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_codigoPersona"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
+
+    <!-- guion de separacion de campos compuestos -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/separador" />
+
+    <!-- NOMBRE DE PERSONA CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_nombrePersona"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
+
+    <!-- FECHA DE INICIO DE SOLICITUD ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_iniciado"
+        android:textStyle="bold" />
+
+    <!-- FECHA DE INICIO DE SOLICITUD CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_iniciado"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
+
+    <!-- CODIGO DE SOLICITUD DE REFERENCIA ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_referencia"
+        android:textStyle="bold" />
+
+    <!-- CODIGO DE SOLICITUD DE REFERENCIA CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_referencia"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
+
+    <!-- TIPO DE SOLICITUD ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_tipoSolicitud"
+        android:textStyle="bold" />
+
+    <!-- TIPO DE SOLICITUD CODIGO CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_tipoSolicitudCodigo"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
+
+    <!-- guion de separacion de campos compuestos -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/separador" />
+
+    <!-- TIPO DE SOLICITUD DESCRIPCION CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_tipoSolicitudDescripcion"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
+
+    <!-- separador de vistas -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <!-- subtitulo detalles de tarea -->
     <TextView
         style="@style/Base.TextAppearance.AppCompat.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/tarea_detalleTarea"
-        android:textStyle="bold"
-        android:paddingTop="10dp"/>
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:paddingTop="10dp"
-        android:paddingLeft="10dp">
+        android:text="@string/tarea_detalleTarea"
+        android:textStyle="bold" />
 
-        <TableRow>
+    <!-- NUMERO DE TAREA ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_numeroTarea"
+        android:textStyle="bold" />
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_numeroTarea"
-                android:textStyle="bold" />
+    <!-- NUMERO DE TAREA CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_numeroTarea"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
 
-            <TextView
-                android:id="@+id/tarea_numeroTarea"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
+    <!-- TIPO DE TAREA ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_tipoTarea"
+        android:textStyle="bold" />
 
-        <TableRow>
+    <!-- TIPO DE TAREA CODIGO CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_tipoTareaCodigo"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_tipoTarea"
-                android:textStyle="bold" />
+    <!-- guion de separacion de campos compuestos -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/separador" />
 
-            <TextView
-                android:id="@+id/tarea_tipoTareaCodigo"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
+    <!-- TIPO DE TAREA DESCRIPCION CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_tipoTareaDescripcion"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separador" />
+    <!-- FECHA DE ASIGNACION ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_fechaAsignado"
+        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tarea_tipoTareaDescripcion"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
+    <!-- FECHA DE ASIGNACION CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_fechaAsignado"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
 
-        <TableRow>
+    <!-- USUARIO ASINGADOR DE LA TAREA ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_usuarioAsigador"
+        android:textStyle="bold" />
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_fechaAsignado"
-                android:textStyle="bold" />
+    <!-- USUARIO ASIGNADOR CODIGO CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_usuarioAsignadorCodigo"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
 
-            <TextView
-                android:id="@+id/tarea_fechaAsignado"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
+    <!-- guion de separacion de campos compuestos -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/separador" />
 
-        <TableRow>
+    <!-- USUARIO ASIGNADOR NOMBRE CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_usuarioAsignadorNombre"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_usuarioAsigador"
-                android:textStyle="bold" />
+    <!-- DESCRIPCION DE LA TAREA ETIQUETA -->
+    <TextView
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tarea_descripcion"
+        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tarea_usuarioAsignadorCodigo"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
+    <!-- DESCRIPCION DE LA TAREA CAMPO MODIFICABLE -->
+    <TextView
+        android:id="@+id/tarea_descripcion"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XXXXXX" />
 
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/separador" />
-
-            <TextView
-                android:id="@+id/tarea_usuarioAsignadorNombre"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                style="@style/Base.TextAppearance.AppCompat.Medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tarea_descripcion"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tarea_descripcion"
-                style="@style/Base.TextAppearance.AppCompat.Caption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="XXXXXX" />
-        </TableRow>
-
-    </TableLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -278,6 +264,7 @@
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
+        <!-- ESTADO DE LA TAREA ETIQUETA -->
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
@@ -285,12 +272,13 @@
             android:text="@string/tarea_estadoTarea"
             android:textStyle="bold" />
 
+        <!-- ESTADO DE LA TAREA SELECCION ITEM -->
         <Spinner
             android:id="@+id/spinner_estadoTarea"
+            style="@style/Base.TextAppearance.AppCompat.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/spinner_estado_tarea"
-            style="@style/Base.TextAppearance.AppCompat.Caption"/>
+            android:entries="@array/spinner_estado_tarea" />
 
     </LinearLayout>
 
@@ -300,6 +288,7 @@
         android:orientation="horizontal"
         android:paddingLeft="10dp">
 
+        <!-- COMENTARION DE LA RECEPCION ETIQUETA -->
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
@@ -307,6 +296,7 @@
             android:text="@string/tarea_comentarioRecibido"
             android:textStyle="bold" />
 
+        <!-- COMENTARIO DE LA RECEPCION CAMPO MODIFICABLE POR USUARIO -->
         <EditText
             android:id="@+id/tarea_comentarioRecepcion"
             style="@style/Base.TextAppearance.AppCompat.Caption"
@@ -321,6 +311,7 @@
         android:paddingBottom="10dp"
         android:paddingLeft="10dp">
 
+        <!-- COMENTARIO ADICIONAL ETIQUETA -->
         <TextView
             style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
@@ -328,43 +319,47 @@
             android:text="@string/tarea_comentarioAdicional"
             android:textStyle="bold" />
 
+        <!-- COMENTARIO ADICIONAL CAMPO MODIFICABLE POR USUARIO -->
         <EditText
             android:id="@+id/tarea_comentarioAdicional"
             style="@style/Base.TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:singleLine="false"/>
+            android:singleLine="false" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:paddingTop="10dp">
 
+        <!-- BOTON DE CANCELAR -->
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/botonAprobacionTarea1"
-            android:text="@string/tarea_boton_1"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/tarea_boton_1" />
+
+        <!-- BOTON DE RECHAZADO -->
+        <Button
             android:id="@+id/botonAprobacionTarea2"
-            android:text="@string/tarea_boton_2"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/tarea_boton_2" />
+
+        <!-- BOTON DE APROBADO -->
+        <Button
             android:id="@+id/botonAprobacionTarea3"
-            android:text="@string/tarea_boton_3"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tarea_boton_3" />
     </LinearLayout>
 
 
