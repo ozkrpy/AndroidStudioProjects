@@ -114,6 +114,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             progressBarEjecucion.setVisibility(View.INVISIBLE);
             if (validado.equals("OK")) {
                 Intent i = new Intent(LoginActivity.this, MasterActivity.class);
+                i.putExtra("tokenU",user);
+                i.putExtra("tokenP",pass);
                 startActivity(i);
                 finish();
             } else {

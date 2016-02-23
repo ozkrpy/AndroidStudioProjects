@@ -1,5 +1,7 @@
 package org.ruffineo.workflowmanager;
 
+import org.ksoap2.serialization.SoapObject;
+
 /**
  * Created by ruffineo on 15/02/2016.
  * Objeto que corresponde al detalle de las tareas
@@ -9,38 +11,30 @@ package org.ruffineo.workflowmanager;
 
 public class Tarea {
 
-    private String solicitudNumero;
-    private String personaCodigo;
-    private String personaNombre;
-    private String solicitudFechaInicio;
-    private String solicitudReferencia;
-    private String solicitudTipoCodigo;
-    private String solicitudTipoDescripcion;
-    private String tareaNumero;
-    private String tareaTipoCodigo;
-    private String tareaTipoDescripcion;
-    private String tareaEstado;
-    private String tareaFechaAsignacion;
-    private String tareaAsignadorCodigo;
-    private String tareaAsignadorNombre;
-    private String tareaDescripcion;
-    private String tareaComentarioRecibido;
-    private String tareaComentarioAdicional;
+    String personaCodigo;
+    String personaNombre;
+    String solicitudFechaInicio;
+    String solicitudReferencia;
+    String solicitudTipoCodigo;
+    String solicitudTipoDescripcion;
+    String tareaNumero;
+    String tareaTipoCodigo;
+    String tareaTipoDescripcion;
+    String tareaEstado;
+    String tareaFechaAsignacion;
+    String tareaAsignadorCodigo;
+    String tareaAsignadorNombre;
+    String tareaDescripcion;
+    String tareaComentarioRecibido;
+    String tareaComentarioAdicional;
 
     public Tarea() {
     }
 
-    public Tarea(String solicitudNumero) {
-        this.solicitudNumero = solicitudNumero;
+    public Tarea(SoapObject object) {
+        new Deserialization().SoapDeserilize(this, object);
     }
 
-    public String getSolicitudNumero() {
-        return solicitudNumero;
-    }
-
-    public void setSolicitudNumero(String solicitudNumero) {
-        this.solicitudNumero = solicitudNumero;
-    }
 
     public String getPersonaCodigo() {
         return personaCodigo;

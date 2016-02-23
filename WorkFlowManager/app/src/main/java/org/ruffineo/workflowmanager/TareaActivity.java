@@ -1,5 +1,7 @@
 package org.ruffineo.workflowmanager;
 
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 public class TareaActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,11 +39,46 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
     private Button boton1;
     private Button boton2;
     private Button boton3;
+    private String user;
+    private String pass;
+    private String solicitud;
+    private Tarea tarea = null;
+    private String method;
+    private String recupero = "ER";
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tarea);
+
+        escribeLog("entro al metodo onCreate de tareaActivity");
+
+        if (savedInstanceState == null) {
+            escribeLog("savedInstanceState es nula");
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                escribeLog("extras es nulo");
+                user = null;
+                pass = null;
+            } else {
+                escribeLog("extras no es nulo");
+                user = extras.getString("tokenU");
+                pass = extras.getString("tokenP");
+                solicitud = extras.getString("tokenS");
+                escribeLog("extras recupero, user: " + user + " pass: " + pass + " solicitud: " + solicitud);
+            }
+        } else {
+            escribeLog("savedInstanceState no es nula");
+            user = (String) savedInstanceState.getSerializable("tokenU");
+            pass = (String) savedInstanceState.getSerializable("tokenP");
+            solicitud = (String) savedInstanceState.getSerializable("tokenS");
+            escribeLog("savedInstance recupero, user: " + user + " pass: " + pass + " solicitud: " + solicitud);
+        }
 
         /**
          * asignacion de todas las variables de la vista a sus correspondientes
@@ -56,8 +97,8 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         tipoTareaDescripcion = (TextView) findViewById(R.id.tarea_tipoTareaDescripcion);
         estadoTarea = (Spinner) findViewById(R.id.spinner_estadoTarea);
         tareaFechaAsignacion = (TextView) findViewById(R.id.tarea_fechaAsignado);
-        tareaAsignadorCodigoUsuario= (TextView) findViewById(R.id.tarea_usuarioAsignadorCodigo);
-        tareaAsignadorNombreUsuario= (TextView) findViewById(R.id.tarea_usuarioAsignadorNombre);
+        tareaAsignadorCodigoUsuario = (TextView) findViewById(R.id.tarea_usuarioAsignadorCodigo);
+        tareaAsignadorNombreUsuario = (TextView) findViewById(R.id.tarea_usuarioAsignadorNombre);
         tareaDescripcion = (TextView) findViewById(R.id.tarea_descripcion);
         tareaComentarioRecepcion = (EditText) findViewById(R.id.tarea_comentarioRecepcion);
         tareaComentarioAdicional = (EditText) findViewById(R.id.tarea_comentarioAdicional);
@@ -68,6 +109,12 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         boton3 = (Button) findViewById(R.id.botonAprobacionTarea3);
         boton3.setOnClickListener(this);
 
+        RecuperaDetallesTarea detallesTarea = new RecuperaDetallesTarea();
+        detallesTarea.execute();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -75,22 +122,108 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
 
         switch (v.getId()) {
             case R.id.botonAprobacionTarea1:
-                escribeLog("Se hizo clic en el boton: " + v.getId());
+                escribeLog("Se hizo clic en el boton: " + boton1.getText());
+                finish();
                 break;
             case R.id.botonAprobacionTarea2:
-                escribeLog("Se hizo clic en el boton: " + v.getId());
+                escribeLog("Se hizo clic en el boton: " + boton2.getText());
                 break;
             case R.id.botonAprobacionTarea3:
-                escribeLog("Se hizo clic en el boton: " + v.getId());
+                escribeLog("Se hizo clic en el boton: " + boton3.getText());
                 break;
         }
-
-
     }
 
     private void escribeLog(String texto) {
         Log.i(TAG, texto);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Tarea Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://org.ruffineo.workflowmanager/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Tarea Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://org.ruffineo.workflowmanager/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
+
+    private class RecuperaDetallesTarea extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            escribeLog("entro a doInBackground");
+            method = "recuperaTareas";
+            WebService ws = new WebService();
+            tarea = ws.recuperaTarea(user, pass, solicitud, method);
+            if (tarea == null) {
+                recupero = "ER";
+            } else {
+                recupero = "OK";
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            escribeLog("entro a onPreExecute");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            escribeLog("entro a onPostExecute");
+            if (recupero.equals("OK")) {
+                cargaDatosTarea();
+            }
+        }
+    }
+
+    private void cargaDatosTarea() {
+        numeroSolicitud.setText(solicitud.toString());
+        personaCodigo.setText(tarea.getPersonaCodigo().toString());
+        personaNombre.setText(tarea.getPersonaNombre());
+        fechaIniciadaSolicitud.setText(tarea.getSolicitudFechaInicio().toString());
+        referenciaSolicitud.setText(tarea.getSolicitudReferencia().toString());
+        tipoSolicitudCodigo.setText(tarea.getSolicitudTipoCodigo().toString());
+        tipoSolicitudDescripcion.setText(tarea.getSolicitudTipoDescripcion().toString());
+        numeroTarea.setText(tarea.getTareaNumero().toString());
+        tipoTareaCodigo.setText(tarea.getTareaTipoCodigo().toString());
+        tipoTareaDescripcion.setText(tarea.getTareaDescripcion().toString());
+        tareaFechaAsignacion.setText(tarea.getTareaFechaAsignacion().toString());
+        tareaAsignadorCodigoUsuario.setText(tarea.getTareaAsignadorCodigo().toString());
+        tareaAsignadorNombreUsuario.setText(tarea.getTareaAsignadorNombre().toString());
+        tareaDescripcion.setText(tarea.getTareaDescripcion().toString());
+    }
 }
 

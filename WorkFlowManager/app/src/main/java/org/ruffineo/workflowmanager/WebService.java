@@ -21,7 +21,7 @@ public class WebService {
     private static final String TAG = "WEBSERVICE_LOG";
 
     private static final String NAMESPACE = "http://servicios.ws/";
-    private static final String IP = "192.168.1.26:9999/";
+    private static final String IP = "192.168.1.20:9999/";
     private static final String URL = "http://" + IP + "WebApps/Servicios?WSDL";
 
     public String validarUsuarioCadena(String user, String pass, String method) {
@@ -164,6 +164,52 @@ public class WebService {
         return respuesta;
     }
 
+    public Tarea recuperaTarea (String user, String pass, String numeroSolicitud, String method) {
+        Tarea respuesta = null;
+
+        String METHOD_NAME = method;
+        String SOAP_ACTION = NAMESPACE + METHOD_NAME;
+
+        escribeLog("Method name: " + method);
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+        escribeLog("Request : " + request.toString());
+        request.addProperty("user", user);
+        request.addProperty("pass", pass);
+        request.addProperty("numeroSolicitud", numeroSolicitud);
+
+        escribeLog("Properties added: " + request.toString());
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.setOutputSoapObject(request);
+        escribeLog("Envelope: " + envelope.toString());
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+        try {
+            androidHttpTransport.call(SOAP_ACTION, envelope);
+            escribeLog("Transport: " + androidHttpTransport.toString());
+            escribeLog("envelope response: " + envelope.getResponse().toString());
+            try {
+                //List resultsRequestSOAP = (List) envelope.getResponse();
+                //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
+                SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
+                if (resultsRequestSOAP != null) {
+                    Tarea respuestaObjeto = new Tarea (resultsRequestSOAP);
+                    respuesta = respuestaObjeto;
+                }
+                //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
+                escribeLog("Recupero: " + resultsRequestSOAP.toString());
+            } catch (Exception e) {
+                escribeLog("Error al castear resultado: " + e.getMessage());
+            }
+
+        } catch (IOException e) {
+            //e.printStackTrace();
+            escribeLog(e.getMessage());
+        } catch (XmlPullParserException e) {
+            //e.printStackTrace();
+            escribeLog(e.getMessage());
+        }
+
+        return respuesta;
+    }
 
     private void escribeLog(String texto) {
         Log.i(TAG, texto);

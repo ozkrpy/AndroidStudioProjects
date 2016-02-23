@@ -1,5 +1,6 @@
 package org.ruffineo.workflowmanager;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -29,6 +30,8 @@ public class MasterActivity extends AppCompatActivity {
     private String[] listaRecuperada;
     private String method;
     private List listaRecuperadaWS;
+    private String user;
+    private String pass;
 
     // 1. Toolbar
     private Toolbar toolbar;
@@ -52,6 +55,27 @@ public class MasterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master);
+
+        if (savedInstanceState == null) {
+            escribeLog("savedInstanceState es nula");
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                escribeLog("extras es nulo");
+                user = null;
+                pass = null;
+            } else {
+                escribeLog("extras no es nulo");
+                user = extras.getString("tokenU");
+                pass = extras.getString("tokenP");
+                escribeLog("extras recupero, user: " + user + " pass: " + pass);
+            }
+        } else {
+            escribeLog("savedInstanceState no es nula");
+            user = (String) savedInstanceState.getSerializable("tokenU");
+            pass = (String) savedInstanceState.getSerializable("tokenP");
+            escribeLog("savedInstance recupero, user: " + user + " pass: " + pass);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -76,6 +100,12 @@ public class MasterActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 escribeLog("se hizo clic en el item: " + lista.getItemAtPosition(position));
+                String solicitudNumero = lista.getItemAtPosition(position).toString();
+                Intent intent = new Intent(MasterActivity.this, TareaActivity.class);
+                intent.putExtra("tokenU", user);
+                intent.putExtra("tokenP", pass);
+                intent.putExtra("tokenS", solicitudNumero);
+                startActivity(intent);
             }
         });
 
@@ -136,6 +166,8 @@ public class MasterActivity extends AppCompatActivity {
             if (listaRecuperadaWS != null) {
                 ListAdapter adaptador = new ArrayAdapter<String>(MasterActivity.this, android.R.layout.simple_list_item_1, listaRecuperadaWS);
                 lista.setAdapter(adaptador);
+            } else {
+                notificaError("No se recuperaron Tareas pendientes");
             }
         }
 
@@ -152,5 +184,7 @@ public class MasterActivity extends AppCompatActivity {
     private void notificaError(String mensaje) {
         Toast.makeText(MasterActivity.this, mensaje, Toast.LENGTH_SHORT).show();
     }
+
+
 
 }
