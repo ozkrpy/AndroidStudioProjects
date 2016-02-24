@@ -10,20 +10,20 @@
     <string name="pass_hint">Contraseña</string>
     <string name="login_button">Ingresar</string>
     <string name="tarea_titulo">Seguimiento de Casos</string>
-    <string name="tarea_numeroSolicitud">Numero:</string>
+    <string name="tarea_numeroSolicitud">"Numero: "</string>
     <string name="tarea_persona">"Persona: "</string>
-    <string name="tarea_iniciado">Iniciado: </string>
-    <string name="tarea_referencia">Referencia: </string>
-    <string name="tarea_tipoSolicitud">Tipo: </string>
+    <string name="tarea_iniciado">"Iniciado: "</string>
+    <string name="tarea_referencia">"Referencia: "</string>
+    <string name="tarea_tipoSolicitud">"Tipo: "</string>
     <string name="tarea_detalleTarea">Detalle de la Tarea</string>
-    <string name="tarea_numeroTarea">Numero: </string>
-    <string name="tarea_tipoTarea">Tipo: </string>
-    <string name="tarea_estadoTarea">Estado: </string>
-    <string name="tarea_fechaAsignado">Asignado: </string>
-    <string name="tarea_usuarioAsigador">Por: </string>
-    <string name="tarea_descripcion">Descripción: </string>
-    <string name="tarea_comentarioRecibido">Comentario: </string>
-    <string name="tarea_comentarioAdicional">Adicional: </string>
+    <string name="tarea_numeroTarea">"Numero: "</string>
+    <string name="tarea_tipoTarea">"Tipo: "</string>
+    <string name="tarea_estadoTarea">"Estado: "</string>
+    <string name="tarea_fechaAsignado">"Asignado: "</string>
+    <string name="tarea_usuarioAsigador">"Por: "</string>
+    <string name="tarea_descripcion">"Descripción: "</string>
+    <string name="tarea_comentarioRecibido">"Comentario: "</string>
+    <string name="tarea_comentarioAdicional">"Adicional: "</string>
     <string name="tarea_boton_1">Cancelado</string>
     <string name="tarea_boton_2">Rechazado</string>
     <string name="tarea_boton_3">Aprobado</string>
@@ -31,6 +31,13 @@
     <string name="tarea_estado1">Pendiente</string>
     <string name="tarea_estado2">Rechazado</string>
     <string name="tarea_estado3">Aprobado</string>
+    <string name="hint_comentario_adicional">En caso que necesite algun comentario adicional</string>
+    <string name="hint_comentarioRecepcion">Ingrese el comentario de recepcion de la tarea</string>
+    <string name="menu_item_volver">Pagina principal</string>
+    <string name="menu_item_ajustes">Ajustes</string>
+    <string name="menu_item_salir">Salir</string>
+    <string name="menu_item_preferencias">Preferencias</string>
+
 
 
 </resources>
