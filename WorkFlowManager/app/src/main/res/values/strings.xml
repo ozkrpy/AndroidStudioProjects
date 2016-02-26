@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">WorkFlow Manager</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Administrador</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="ingreso">Ingreso a usuarios</string>
@@ -37,7 +36,4 @@
     <string name="menu_item_ajustes">Ajustes</string>
     <string name="menu_item_salir">Salir</string>
     <string name="menu_item_preferencias">Preferencias</string>
-
-
-
 </resources>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#455A64"
+    android:gravity="center"
     android:orientation="vertical"
-    android:scrollbarAlwaysDrawVerticalTrack="true">
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
 
     <TextView
         android:id="@+id/login_title"
@@ -14,89 +15,58 @@
         android:layout_marginTop="22dp"
         android:gravity="center_horizontal"
         android:text="@string/ingreso"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textSize="26sp"
         android:textStyle="bold" />
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_title"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="70dp"
-        android:background="#fff"
-        android:elevation="4dp"
-        android:orientation="vertical"
-        android:padding="20dp">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/editText_user"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="30dp">
+            android:drawableStart="@drawable/user"
+            android:drawableTint="#FFF"
+            android:fontFamily="sans-serif"
+            android:hint="@string/user_hint"
+            android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/user"
-                    android:drawableTint="#FFF"
-                    android:singleLine="true"
-                    android:hint="@string/user_hint"
-                    android:fontFamily="sans-serif"
-                    android:id="@+id/editText_user" />
-            </android.support.design.widget.TextInputLayout>
+        <EditText
+            android:id="@+id/editText_pass"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/lock"
+            android:drawableTint="#FFF"
+            android:fontFamily="sans-serif"
+            android:hint="@string/pass_hint"
+            android:password="true"
+            android:singleLine="true" />
+    </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/button_ingresar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="22dp"
+        android:background="#d67601"
+        android:text="@string/login_button"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="18sp" />
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:singleLine="true"
-                    android:drawableStart="@drawable/lock"
-                    android:drawableTint="#FFF"
-                    android:hint="@string/pass_hint"
-                    android:fontFamily="sans-serif"
-                    android:id="@+id/editText_pass"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="22dp"
-                android:background="#d67601"
-                android:text="@string/login_button"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="18sp"
-                android:id="@+id/button_ingresar"/>
-
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:layout_gravity="center"
-                android:id="@+id/progressBar_ejecucion"/>
-        </LinearLayout>
-    </RelativeLayout>
-
-    <ImageButton
-        android:id="@+id/user_profile_photo"
+    <ProgressBar
+        android:id="@+id/progressBar_ejecucion"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:layout_below="@+id/login_title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:background="#455A64"
-        android:elevation="5dp"
-        android:src="@drawable/logo" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
 
-
-</RelativeLayout>
+</LinearLayout>
