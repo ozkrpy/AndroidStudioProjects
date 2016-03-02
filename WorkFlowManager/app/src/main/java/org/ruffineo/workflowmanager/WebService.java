@@ -21,63 +21,9 @@ public class WebService {
     private static final String TAG = "WEBSERVICE_LOG";
 
     private static final String NAMESPACE = "http://servicios.ws/";
-    private static final String IP = "192.168.1.20:9999/";
-    private static final String URL = "http://" + IP + "WebApps/Servicios?WSDL";
-
-    public String validarUsuarioCadena(String user, String pass, String method) {
-        if (user.equals("oscar") && (pass.equals("oscar"))) {
-            return "OK";
-        }
-        return "ER";
-    }
-
-    public String[] solicitudesPendientes (String user, String method) {
-        String[] solicitudes = new String[] {
-                "2386",
-                "2340",
-                "2305"
-        };
-        return solicitudes;
-    }
-
-    public String consultaUsuario (String user, String pass, String method) {
-        String respuesta = "NO";
-
-        String METHOD_NAME = method;
-        String SOAP_ACTION = NAMESPACE + METHOD_NAME;
-
-        escribeLog("Method name: " + method);
-        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-        escribeLog("Request : " + request.toString());
-        request.addProperty("user", user);
-        request.addProperty("pass", pass);
-        escribeLog("Properties added: " + request.toString());
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        envelope.setOutputSoapObject(request);
-        escribeLog("Envelope: " + envelope.toString());
-        HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-        try {
-            androidHttpTransport.call(SOAP_ACTION, envelope);
-            escribeLog("Transport: " + androidHttpTransport.toString());
-            SoapPrimitive resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
-            //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
-            if (resultsRequestSOAP != null) {
-                respuesta = resultsRequestSOAP.toString();
-            }
-            //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
-            escribeLog("Recupero: " + resultsRequestSOAP.toString());
-
-        } catch (IOException e) {
-            //e.printStackTrace();
-            escribeLog(e.getMessage());
-        } catch (XmlPullParserException e) {
-            //e.printStackTrace();
-            escribeLog(e.getMessage());
-        }
-
-
-        return respuesta;
-    }
+    //private static final String IP = "190.52.175.153";//cuando se use desde una locacion externa
+    private static final String IP = "192.168.1.3";//cuando se use una conexion WIFI local
+    private static final String URL = "http://" + IP + ":9999/WebApps/Servicios?WSDL";
 
     public Respuesta consultaUsuarioObjeto (String user, String pass, String method) {
         Respuesta respuesta = new Respuesta(0, "ER", "se inicializo correctamente en la APP");

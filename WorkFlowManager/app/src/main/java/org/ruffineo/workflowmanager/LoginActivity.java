@@ -113,12 +113,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             escribeLog("entro al onPostExecute ValidarDatos");
             progressBarEjecucion.setVisibility(View.INVISIBLE);
             if (validado.equals("OK")) {
+                escribeLog("Usuario / contraseña validos. Resultado: " + validado);
                 Intent i = new Intent(LoginActivity.this, MasterActivity.class);
                 i.putExtra("tokenU",user);
                 i.putExtra("tokenP",pass);
                 startActivity(i);
                 finish();
             } else {
+                escribeLog("Usuario / contraseña no validos. Resultado: " + validado);
                 notificaError("Usuario/Contraseña no validos.");
             }
         }
