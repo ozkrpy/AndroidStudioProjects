@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String pass;
     private String method;
     private String validado = "NO";
-
+    String mensaje;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void notificaError(String mensaje) {
-        Toast.makeText(LoginActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+        Toast.makeText(LoginActivity.this, mensaje, Toast.LENGTH_LONG).show();
     }
 
 
@@ -76,17 +76,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected Void doInBackground(Void... params) {
             escribeLog("entro al doInBackground ValidarDatos");
-            /*
-            WebService ws = new WebService();
-            method = "validarUsuarios";
-            String cadenaRetorno = ws.consultaUsuario(user, pass, method);
-            escribeLog("Recupero del WS, cadenaRetorno: " + cadenaRetorno);
-            if (cadenaRetorno.equals("OK")) {
-                validado = "OK";
-            } else {
-                validado = "ER";
-            }
-            */
             method = "validaUsuarioObjeto";
             WebService ws = new WebService();
             Respuesta respuesta = ws.consultaUsuarioObjeto(user, pass, method);
@@ -95,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 validado = "OK";
             } else {
                 validado = "ER";
+                mensaje = respuesta.getReferencia();
             }
             return null;
         }
@@ -121,7 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 finish();
             } else {
                 escribeLog("Usuario / contraseña no validos. Resultado: " + validado);
-                notificaError("Usuario/Contraseña no validos.");
+                notificaError("Usuario/Contraseña no validos." + mensaje);
             }
         }
     }

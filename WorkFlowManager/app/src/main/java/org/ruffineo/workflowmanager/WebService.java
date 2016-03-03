@@ -21,11 +21,11 @@ public class WebService {
     private static final String TAG = "WEBSERVICE_LOG";
 
     private static final String NAMESPACE = "http://servicios.ws/";
-    //private static final String IP = "190.52.175.153";//cuando se use desde una locacion externa
-    private static final String IP = "192.168.1.3";//cuando se use una conexion WIFI local
+    private static final String IP = "190.52.175.153";//cuando se use desde una locacion externa
+    //private static final String IP = "192.168.1.3";//cuando se use una conexion WIFI local
     private static final String URL = "http://" + IP + ":9999/WebApps/Servicios?WSDL";
 
-    public Respuesta consultaUsuarioObjeto (String user, String pass, String method) {
+    public Respuesta consultaUsuarioObjeto(String user, String pass, String method) {
         Respuesta respuesta = new Respuesta(0, "ER", "se inicializo correctamente en la APP");
 
         String METHOD_NAME = method;
@@ -57,16 +57,18 @@ public class WebService {
 
         } catch (IOException e) {
             //e.printStackTrace();
-            escribeLog(e.getMessage());
+            escribeLog("IOException: " + e.getMessage());
+            respuesta.setReferencia("catch: " + e.getMessage());
         } catch (XmlPullParserException e) {
             //e.printStackTrace();
-            escribeLog(e.getMessage());
+            escribeLog("XmlPullParserException: " + e.getMessage());
+            respuesta.setReferencia("catch: " + e.getMessage());
         }
 
         return respuesta;
     }
 
-    public List recuperaLista (String user, String pass, String method) {
+    public List recuperaLista(String user, String pass, String method) {
         List respuesta = null;
 
         String METHOD_NAME = method;
@@ -101,16 +103,16 @@ public class WebService {
 
         } catch (IOException e) {
             //e.printStackTrace();
-            escribeLog(e.getMessage());
+            escribeLog("IOException: " + e.getMessage());
         } catch (XmlPullParserException e) {
             //e.printStackTrace();
-            escribeLog(e.getMessage());
+            escribeLog("XmlPullParserException: " + e.getMessage());
         }
 
         return respuesta;
     }
 
-    public Tarea recuperaTarea (String user, String pass, String numeroSolicitud, String method) {
+    public Tarea recuperaTarea(String user, String pass, String numeroSolicitud, String method) {
         Tarea respuesta = null;
 
         String METHOD_NAME = method;
@@ -137,7 +139,7 @@ public class WebService {
                 //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
                 SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
                 if (resultsRequestSOAP != null) {
-                    Tarea respuestaObjeto = new Tarea (resultsRequestSOAP);
+                    Tarea respuestaObjeto = new Tarea(resultsRequestSOAP);
                     respuesta = respuestaObjeto;
                 }
                 //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
@@ -148,10 +150,10 @@ public class WebService {
 
         } catch (IOException e) {
             //e.printStackTrace();
-            escribeLog(e.getMessage());
+            escribeLog("IOException: " + e.getMessage());
         } catch (XmlPullParserException e) {
             //e.printStackTrace();
-            escribeLog(e.getMessage());
+            escribeLog("XmlPullParserException: " + e.getMessage());
         }
 
         return respuesta;
