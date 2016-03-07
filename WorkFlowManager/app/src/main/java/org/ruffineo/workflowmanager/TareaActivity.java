@@ -1,10 +1,13 @@
 package org.ruffineo.workflowmanager;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -224,6 +227,28 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         tareaAsignadorCodigoUsuario.setText(tarea.getTareaAsignadorCodigo().toString());
         tareaAsignadorNombreUsuario.setText(tarea.getTareaAsignadorNombre().toString());
         tareaDescripcion.setText(tarea.getTareaDescripcion().toString());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_tarea, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_settings:
+                Intent i = new Intent(TareaActivity.this, PreferencesActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.action_volver:
+                finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
 

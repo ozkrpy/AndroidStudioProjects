@@ -32,7 +32,7 @@
     <string name="tarea_estado3">Aprobado</string>
     <string name="hint_comentario_adicional">En caso que necesite algun comentario adicional</string>
     <string name="hint_comentarioRecepcion">Ingrese el comentario de recepcion de la tarea</string>
-    <string name="menu_item_volver">Pagina principal</string>
+    <string name="menu_item_volver">Volver</string>
     <string name="menu_item_ajustes">Ajustes</string>
     <string name="menu_item_salir">Salir</string>
     <string name="menu_item_preferencias">Preferencias</string>
