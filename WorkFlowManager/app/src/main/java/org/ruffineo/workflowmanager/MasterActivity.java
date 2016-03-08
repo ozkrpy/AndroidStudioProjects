@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -182,7 +183,7 @@ public class MasterActivity extends AppCompatActivity {
     }
 
     private void notificaError(String mensaje) {
-        Toast.makeText(MasterActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MasterActivity.this, mensaje, Toast.LENGTH_LONG).show();
     }
 
 

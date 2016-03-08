@@ -36,4 +36,5 @@
     <string name="menu_item_ajustes">Ajustes</string>
     <string name="menu_item_salir">Salir</string>
     <string name="menu_item_preferencias">Preferencias</string>
+    <string name="menu_item_recargar">Actualizar Lista</string>
 </resources>
