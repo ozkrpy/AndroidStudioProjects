@@ -77,9 +77,6 @@ public class MasterActivity extends AppCompatActivity {
             escribeLog("savedInstance recupero, user: " + user + " pass: " + pass);
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         // 1. Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -139,10 +136,16 @@ public class MasterActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent i = null;
         switch (id) {
             case R.id.action_settings:
-                Intent i = new Intent(MasterActivity.this, PreferencesActivity.class);
+                i = new Intent(MasterActivity.this, PreferencesActivity.class);
                 startActivity(i);
+                return true;
+            case R.id.action_login:
+                i = new Intent(MasterActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
                 return true;
             case R.id.action_exit:
                 finish();

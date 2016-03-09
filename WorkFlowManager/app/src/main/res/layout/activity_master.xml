@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -15,9 +16,7 @@
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
-            <!-- Aqui pondremos el Toolbar + ImageView + TabLayout -->
-            <!-- Dentro de un CollapsingBar -->
+            <!-- Aqui pondremos el Toolbar + ImageView + TabLayout dentro de un CollapsingBar -->
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
@@ -47,10 +46,10 @@
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
-
+        <!-- Contenido principal, Lista de solicitudes -->
         <include layout="@layout/content_master" />
 
-
+        <!-- Boton flotante -->
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
@@ -61,6 +60,7 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+    <!-- Drawer expandible -->
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_drawer"
         android:layout_width="wrap_content"

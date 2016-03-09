@@ -37,4 +37,5 @@
     <string name="menu_item_salir">Salir</string>
     <string name="menu_item_preferencias">Preferencias</string>
     <string name="menu_item_recargar">Actualizar Lista</string>
+    <string name="menu_item_login">Cambiar de Usuario</string>
 </resources>
