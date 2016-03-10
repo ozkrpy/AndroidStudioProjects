@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -51,6 +53,10 @@ public class MasterActivity extends AppCompatActivity {
 
     // 5. Collapsing toolbar
     CollapsingToolbarLayout collapsingToolbarLayout;
+
+    // 6. Navigaction View
+    private NavigationView mNavigationView;
+    private TextView header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +127,12 @@ public class MasterActivity extends AppCompatActivity {
             }
         });
 
+        // 6. Navigation View
+        mNavigationView = (NavigationView) findViewById(R.id.navigation_drawer);
+        Menu menuDrawer = mNavigationView.getMenu();
+        escribeLog("menu: " + menuDrawer.toString());
+
+
         //Invoca al WebService para recuperar la lista
         ListarSolicitudes lista = new ListarSolicitudes();
         lista.execute();
@@ -129,6 +141,7 @@ public class MasterActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_master, menu);
         return true;
     }
