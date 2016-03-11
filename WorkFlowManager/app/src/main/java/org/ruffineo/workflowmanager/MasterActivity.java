@@ -128,7 +128,7 @@ public class MasterActivity extends AppCompatActivity {
         });
 
         // 6. Navigation View
-        mNavigationView = (NavigationView) findViewById(R.id.navigation_drawer);
+        //mNavigationView = (NavigationView) findViewById(R.id.navigation_drawer);
         //Menu menuDrawer = mNavigationView.getMenu();
 
         //Invoca al WebService para recuperar la lista
