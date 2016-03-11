@@ -129,9 +129,7 @@ public class MasterActivity extends AppCompatActivity {
 
         // 6. Navigation View
         mNavigationView = (NavigationView) findViewById(R.id.navigation_drawer);
-        Menu menuDrawer = mNavigationView.getMenu();
-        escribeLog("menu: " + menuDrawer.toString());
-
+        //Menu menuDrawer = mNavigationView.getMenu();
 
         //Invoca al WebService para recuperar la lista
         ListarSolicitudes lista = new ListarSolicitudes();
@@ -141,7 +139,6 @@ public class MasterActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
         getMenuInflater().inflate(R.menu.menu_master, menu);
         return true;
     }
@@ -158,13 +155,26 @@ public class MasterActivity extends AppCompatActivity {
             case R.id.action_login:
                 i = new Intent(MasterActivity.this, LoginActivity.class);
                 startActivity(i);
-                finish();
+                metodoFinalizarActividad();
                 return true;
             case R.id.action_exit:
-                finish();
+                metodoFinalizarActividad();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void metodoFinalizarActividad() {
+        escribeLog("Se invoco la finalizacion de la aplicacion.");
+        finish();
+    }
+
+    private void metodoIniciarAjustes() {
+        //TODO
+    }
+
+    private void metodoRefrescarLista() {
+        //TODO
     }
 
     private class ListarSolicitudes extends AsyncTask<String, Void, Void> {
