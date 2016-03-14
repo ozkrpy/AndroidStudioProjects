@@ -51,6 +51,12 @@ public class MasterActivity extends AppCompatActivity {
             "Lista Vacia"
     };
 
+    ListView mDrawerList;
+    static final String[] items = new String[]{
+            "items drawer"
+    };
+
+
     // 5. Collapsing toolbar
     CollapsingToolbarLayout collapsingToolbarLayout;
 
@@ -89,6 +95,13 @@ public class MasterActivity extends AppCompatActivity {
 
         // 2. Drawer
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.drawer_list);
+
+        /* Creating an ArrayAdapter to add items to mDrawerList */
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, items);
+
+        /* Setting the adapter to mDrawerList */
+        mDrawerList.setAdapter(adapter);
 
         // 3. Drawer Toggle
         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
@@ -130,6 +143,9 @@ public class MasterActivity extends AppCompatActivity {
         // 6. Navigation View
         //mNavigationView = (NavigationView) findViewById(R.id.navigation_drawer);
         //Menu menuDrawer = mNavigationView.getMenu();
+
+
+
 
         //Invoca al WebService para recuperar la lista
         ListarSolicitudes lista = new ListarSolicitudes();
