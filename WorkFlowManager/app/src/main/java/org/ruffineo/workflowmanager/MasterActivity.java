@@ -96,10 +96,8 @@ public class MasterActivity extends AppCompatActivity {
         // 2. Drawer
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
-
-        /* Creating an ArrayAdapter to add items to mDrawerList */
-        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, items);
-
+       /* Creating an ArrayAdapter to add items to mDrawerList */
+        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.drawer_menu_item, items);
         /* Setting the adapter to mDrawerList */
         mDrawerList.setAdapter(adapter);
 
