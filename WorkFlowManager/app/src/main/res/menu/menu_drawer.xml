@@ -1,19 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--
-    <item
-        android:id="@+id/drawer_actualizar_lista"
-        android:title="@string/menu_item_recargar"
-        android:onClick="metodoRefrescarLista" />
-    <item
-        android:id="@+id/drawer_ajustes"
-        android:title="@string/menu_item_ajustes"
-        android:onClick="metodoIniciarAjustes" />
-    <item
-        android:id="@+id/drawer_salir"
-        android:title="@string/menu_item_salir"
-        android:onClick="metodoFinalizarActividad" />
-    <!- -->
     <item
         android:id="@+id/drawer_actualizar_lista"
         android:title="@string/menu_item_recargar"

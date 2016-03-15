@@ -53,16 +53,14 @@ public class MasterActivity extends AppCompatActivity {
 
     ListView mDrawerList;
     static final String[] items = new String[]{
-            "items drawer"
+            "Actualizar lista de tareas",
+            "Ajustes de la aplicacion",
+            "Salir"
     };
 
 
     // 5. Collapsing toolbar
     CollapsingToolbarLayout collapsingToolbarLayout;
-
-    // 6. Navigaction View
-    private NavigationView mNavigationView;
-    private TextView header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +87,10 @@ public class MasterActivity extends AppCompatActivity {
             escribeLog("savedInstance recupero, user: " + user + " pass: " + pass);
         }
 
+        //Invoca al WebService para recuperar la lista
+        ListarSolicitudes listaWS = new ListarSolicitudes();
+        listaWS.execute();
+
         // 1. Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -100,6 +102,30 @@ public class MasterActivity extends AppCompatActivity {
         ArrayAdapter adapter = new ArrayAdapter(this,R.layout.drawer_menu_item, items);
         /* Setting the adapter to mDrawerList */
         mDrawerList.setAdapter(adapter);
+        // Setting item click listener to mDrawerList
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                escribeLog("drawer posicion: " + position);
+                switch (position) {
+                    case 0:
+                        escribeLog("Se invoca a una nueva actualizacion de las tareas pendientes");
+                        ListarSolicitudes listaRefresh = new ListarSolicitudes();
+                        listaRefresh.execute();
+                        break;
+                    case 1:
+                        escribeLog("Se invoca al menu de ajustes");
+                        Intent i = new Intent(MasterActivity.this, PreferencesActivity.class);
+                        startActivity(i);
+                        break;
+                    case 2:
+                        escribeLog("Salir de la aplicacion");
+                        finish();
+                        break;
+                }
+                drawer.closeDrawer(mDrawerList);
+            }
+        });
 
         // 3. Drawer Toggle
         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
@@ -138,16 +164,6 @@ public class MasterActivity extends AppCompatActivity {
             }
         });
 
-        // 6. Navigation View
-        //mNavigationView = (NavigationView) findViewById(R.id.navigation_drawer);
-        //Menu menuDrawer = mNavigationView.getMenu();
-
-
-
-
-        //Invoca al WebService para recuperar la lista
-        ListarSolicitudes lista = new ListarSolicitudes();
-        lista.execute();
     }
 
     @Override
