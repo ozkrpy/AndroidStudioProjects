@@ -31,7 +31,8 @@
             android:drawableTint="#FFF"
             android:fontFamily="sans-serif"
             android:hint="@string/user_hint"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:backgroundTint="#455A64"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -48,7 +49,8 @@
             android:fontFamily="sans-serif"
             android:hint="@string/pass_hint"
             android:password="true"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:backgroundTint="#455A64"/>
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -56,7 +58,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="22dp"
-        android:background="#d67601"
+        android:background="#455A64"
         android:text="@string/login_button"
         android:textAllCaps="false"
         android:textColor="#fff"

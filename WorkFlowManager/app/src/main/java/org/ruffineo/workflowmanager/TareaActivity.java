@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -112,8 +113,13 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         boton3 = (Button) findViewById(R.id.botonAprobacionTarea3);
         boton3.setOnClickListener(this);
 
+        try {
         RecuperaDetallesTarea detallesTarea = new RecuperaDetallesTarea();
         detallesTarea.execute();
+        } catch (Exception e) {
+            escribeLog("excepcion al recuperar tarea: " + e.getMessage());
+            finish();
+        }
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -205,9 +211,12 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            escribeLog("entro a onPostExecute");
+            escribeLog("entro a onPostExecute, recupero datos: " + recupero.toString());
             if (recupero.equals("OK")) {
                 cargaDatosTarea();
+            } else {
+                notificaError("No se encontraron datos de la tarea.");
+                finish();
             }
         }
     }
@@ -240,15 +249,15 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.action_settings:
-                Intent i = new Intent(TareaActivity.this, PreferencesActivity.class);
-                startActivity(i);
-                return true;
             case R.id.action_volver:
                 finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void notificaError(String mensaje) {
+        Toast.makeText(TareaActivity.this, mensaje, Toast.LENGTH_LONG).show();
     }
 }
 

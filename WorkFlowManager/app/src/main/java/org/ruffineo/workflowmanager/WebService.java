@@ -43,11 +43,10 @@ public class WebService {
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
         try {
             androidHttpTransport.call(SOAP_ACTION, envelope);
-            escribeLog("Transport: " + androidHttpTransport.toString());
-            //SoapPrimitive resultsRequestSOAP = (SoapPrimitive) envelope.getResponse();
-            //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
             SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
             if (resultsRequestSOAP != null) {
+                escribeLog("Transport: " + androidHttpTransport.toString());
+                escribeLog("envelope response: " + envelope.getResponse().toString());
                 Respuesta respuestaObjeto = new Respuesta(resultsRequestSOAP);
                 escribeLog("recupero objeto respuesta - Codigo: " + respuestaObjeto.getCodigo() + " mensaje: " + respuestaObjeto.getMensaje() + " referencia: " + respuestaObjeto.getReferencia());
                 respuesta = respuestaObjeto;
@@ -86,13 +85,13 @@ public class WebService {
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
         try {
             androidHttpTransport.call(SOAP_ACTION, envelope);
-            escribeLog("Transport: " + androidHttpTransport.toString());
-            escribeLog("envelope response: " + envelope.getResponse().toString());
             try {
                 List resultsRequestSOAP = (List) envelope.getResponse();
                 //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
                 //SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
                 if (resultsRequestSOAP != null) {
+                    escribeLog("Transport: " + androidHttpTransport.toString());
+                    escribeLog("envelope response: " + envelope.getResponse().toString());
                     respuesta = (List) resultsRequestSOAP;
                 }
                 //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
@@ -132,13 +131,13 @@ public class WebService {
         HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
         try {
             androidHttpTransport.call(SOAP_ACTION, envelope);
-            escribeLog("Transport: " + androidHttpTransport.toString());
-            escribeLog("envelope response: " + envelope.getResponse().toString());
             try {
                 //List resultsRequestSOAP = (List) envelope.getResponse();
                 //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
                 SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
                 if (resultsRequestSOAP != null) {
+                    escribeLog("Transport: " + androidHttpTransport.toString());
+                    escribeLog("envelope response: " + envelope.getResponse().toString());
                     Tarea respuestaObjeto = new Tarea(resultsRequestSOAP);
                     respuesta = respuestaObjeto;
                 }
