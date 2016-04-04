@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "LOGIN_LOG";
@@ -25,6 +26,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String method;
     private String validado = "NO";
     String mensaje;
+    private DatosUsuario objetoUsuario;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +79,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected Void doInBackground(Void... params) {
             escribeLog("entro al doInBackground ValidarDatos");
-            method = "validaUsuarioObjeto";
+            //method = "validaUsuarioObjeto";
+            method = "validarUsuarioParametroObjeto ";
+            objetoUsuario = new DatosUsuario(user, pass, "20160404");//TODO
             WebService ws = new WebService();
-            Respuesta respuesta = ws.consultaUsuarioObjeto(user, pass, method);
+            //Respuesta respuesta = ws.consultaUsuarioObjeto(user, pass, method);
+            Respuesta respuesta = ws.consultaUsuarioParametroObjeto(objetoUsuario, method);
             escribeLog("recupero objeto respuesta - Codigo: " + respuesta.getCodigo() + " mensaje: " + respuesta.getMensaje() + " referencia: " + respuesta.getReferencia());
             if (respuesta.getCodigo() == 1) {
                 validado = "OK";
