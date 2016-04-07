@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -105,6 +107,28 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         tareaAsignadorNombreUsuario = (TextView) findViewById(R.id.tarea_usuarioAsignadorNombre);
         tareaDescripcion = (TextView) findViewById(R.id.tarea_descripcion);
         tareaComentarioRecepcion = (EditText) findViewById(R.id.tarea_comentarioRecepcion);
+        tareaComentarioRecepcion.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (tareaComentarioRecepcion.getText().toString().length() > 0) {
+                    boton1.setEnabled(true);
+                    boton2.setEnabled(true);
+                    boton3.setEnabled(true);
+                } else {
+                    boton1.setEnabled(false);
+                    boton2.setEnabled(false);
+                    boton3.setEnabled(false);
+                }
+            }
+        });
         tareaComentarioAdicional = (EditText) findViewById(R.id.tarea_comentarioAdicional);
         boton1 = (Button) findViewById(R.id.botonAprobacionTarea1);
         boton1.setOnClickListener(this);
@@ -191,7 +215,7 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected Void doInBackground(String... params) {
             escribeLog("entro a doInBackground");
-            method = "recuperaTareas";
+            method = "recuperaTareasParametroObjeto";
             WebService ws = new WebService();
             tarea = ws.recuperaTarea(user, pass, solicitud, method);
             if (tarea == null) {

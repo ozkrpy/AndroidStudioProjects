@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String method;
     private String validado = "NO";
     String mensaje;
-    private DatosUsuario objetoUsuario;
 
 
     @Override
@@ -79,13 +78,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected Void doInBackground(Void... params) {
             escribeLog("entro al doInBackground ValidarDatos");
-            //method = "validaUsuarioObjeto";
-            method = "validarUsuarioParametroObjeto ";
-            objetoUsuario = new DatosUsuario(user, pass, "20160404");//TODO
+            method = "validarUsuarioParametroObjeto";
             WebService ws = new WebService();
-            //Respuesta respuesta = ws.consultaUsuarioObjeto(user, pass, method);
-            Respuesta respuesta = ws.consultaUsuarioParametroObjeto(objetoUsuario, method);
-            escribeLog("recupero objeto respuesta - Codigo: " + respuesta.getCodigo() + " mensaje: " + respuesta.getMensaje() + " referencia: " + respuesta.getReferencia());
+            Respuesta respuesta = ws.consultaUsuarioParametroObjeto(user, pass, method);
+            escribeLog("recupero objeto respuesta - Codigo: " + respuesta.getCodigo() +" mensaje: " + respuesta.getMensaje() + " referencia: " + respuesta.getReferencia());
             if (respuesta.getCodigo() == 1) {
                 validado = "OK";
             } else {

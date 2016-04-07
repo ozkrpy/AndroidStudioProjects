@@ -134,6 +134,7 @@ public class MasterActivity extends AppCompatActivity {
 
         // 4 ListView
         lista = (ListView) findViewById(R.id.lista);
+        //ListAdapter adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Solicitudes);
         ListAdapter adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Solicitudes);
         lista.setAdapter(adaptador);
 
@@ -199,20 +200,12 @@ public class MasterActivity extends AppCompatActivity {
         finish();
     }
 
-    private void metodoIniciarAjustes() {
-        //TODO
-    }
-
-    private void metodoRefrescarLista() {
-        //TODO
-    }
-
     private class ListarSolicitudes extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            method = "recuperaLista";
+            method = "recuperaListaParametroObjeto";
             WebService ws = new WebService();
-            listaRecuperadaWS = ws.recuperaLista("oscar","oscar", method);
+            listaRecuperadaWS = ws.recuperaListaParametroObjeto(user,pass, method);
             escribeLog("recupero de la clase WS lista: " + listaRecuperadaWS.toString());
             return null;
         }

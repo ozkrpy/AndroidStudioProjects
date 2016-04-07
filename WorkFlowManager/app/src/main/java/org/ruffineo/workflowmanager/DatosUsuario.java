@@ -1,5 +1,7 @@
 package org.ruffineo.workflowmanager;
 
+import android.util.Log;
+
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
 
