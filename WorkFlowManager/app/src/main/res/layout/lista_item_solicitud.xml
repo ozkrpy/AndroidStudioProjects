@@ -6,19 +6,19 @@
 
     <TextView
         android:id="@+id/item_nroSolicitud"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
         android:paddingLeft="5dp"
-        android:textColor="#000"/>
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/item_descripcion"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/label"
-        android:textSize="12sp"
         android:paddingLeft="5dp"
-        android:textColor="@color/colorPrimary"/>
+        android:textStyle="italic"/>
 
 </LinearLayout>

@@ -217,7 +217,7 @@ public class WebService {
             try {
                 java.util.Vector<SoapObject> rs = (java.util.Vector<SoapObject>) envelope.getResponse();
                 if (rs != null) {
-                    escribeLog("envelope response: " + rs.toString());
+                    escribeLog("Vector retorno datos, envelope response: " + rs.toString());
 
                     for (SoapObject cs : rs)
                     {
@@ -233,18 +233,22 @@ public class WebService {
 
                     escribeLog("Recupero: " + rs.toString());
                 } else {
-                    returnlist.add(new Item("Vacio", "Sin Solicitudes pendientes"));
+                    escribeLog("Vector de respuesta retorno vacio.");
+                    return null;
 
                 }
 
             } catch (Exception e) {
                 escribeLog("Error al castear resultado: " + e.getMessage());
+                return null;
             }
 
         } catch (IOException e) {
             escribeLog("IOException: " + e.getMessage());
+            return null;
         } catch (XmlPullParserException e) {
             escribeLog("XmlPullParserException: " + e.getMessage());
+            return null;
         }
 
         return returnlist;

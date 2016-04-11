@@ -360,7 +360,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_comentarioRecepcion"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:textColor="#000"/>
             </LinearLayout>
             <!-- comentario adicional -->
             <LinearLayout
@@ -384,7 +385,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_comentario_adicional"
                     android:singleLine="false"
-                    android:textStyle="italic" />
+                    android:textStyle="italic"
+                    android:textColor="#000"/>
             </LinearLayout>
             <!-- separador de vistas -->
             <View

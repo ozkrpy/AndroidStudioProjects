@@ -36,34 +36,18 @@ public class MasterActivity extends AppCompatActivity {
     private ArrayList<Item> listaRecuperadaWS;
     private String user;
     private String pass;
-
-    // 1. Toolbar
     private Toolbar toolbar;
-
-    // 2. Drawer
     private DrawerLayout drawer;
-
-    // 3. Drawer Toggle
     private ActionBarDrawerToggle drawerToggle;
-
-    // 4. Creamos un ListView para simplificar
-    ListView lista;
-    static final String[] Solicitudes = new String[]{
-            "Lista Vacia"
-    };
+    private ListView lista;
     private MyAdapter adaptador;
-
     ArrayList<Item> listaSolicitudes = new ArrayList<Item>();
-
     ListView mDrawerList;
     static final String[] items = new String[]{
             "Actualizar lista de tareas",
             "Ajustes de la aplicacion",
             "Salir"
     };
-
-
-    // 5. Collapsing toolbar
     CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
@@ -90,23 +74,18 @@ public class MasterActivity extends AppCompatActivity {
             pass = (String) savedInstanceState.getSerializable("tokenP");
             escribeLog("savedInstance recupero, user: " + user + " pass: " + pass);
         }
-
-        //Invoca al WebService para recuperar la lista
-        ListarSolicitudes listaWS = new ListarSolicitudes();
-        listaWS.execute();
-
-        // 1. Toolbar
+        try {
+            ListarSolicitudes listaWS = new ListarSolicitudes();
+            listaWS.execute();
+        } catch (Exception e) {
+            escribeLog("Error al invocar la carga del WS: " + e.getMessage());
+        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // 2. Drawer
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
-       /* Creating an ArrayAdapter to add items to mDrawerList */
         ArrayAdapter adapter = new ArrayAdapter(this,R.layout.drawer_menu_item, items);
-        /* Setting the adapter to mDrawerList */
         mDrawerList.setAdapter(adapter);
-        // Setting item click listener to mDrawerList
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -130,22 +109,16 @@ public class MasterActivity extends AppCompatActivity {
                 drawer.closeDrawer(mDrawerList);
             }
         });
-
-        // 3. Drawer Toggle
         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawer.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
-
-        // 4 ListView
         lista = (ListView) findViewById(R.id.lista);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 escribeLog("se hizo clic en el item: " + lista.getItemAtPosition(position));
-                //String solicitudNumero = lista.getItemAtPosition(position).toString();
                 Item solicitudItem = (Item) lista.getItemAtPosition(position);
                 String solicitudNumero = solicitudItem.getTitle().toString();
-
                 Intent intent = new Intent(MasterActivity.this, TareaActivity.class);
                 intent.putExtra("tokenU", user);
                 intent.putExtra("tokenP", pass);
@@ -153,12 +126,8 @@ public class MasterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // 5. Collapsing toolbar
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
         collapsingToolbarLayout.setTitle("Solicitudes");
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +178,8 @@ public class MasterActivity extends AppCompatActivity {
             method = "recuperaListaParametroRetorno";
             WebService ws = new WebService();
             listaRecuperadaWS = ws.recuperaLista(user, pass, method);
+            /* INTENCIONALMENTE SIMULAMOS PERDER LOS DATOS DE USUARIO */
+            //listaRecuperadaWS = ws.recuperaLista("user", pass, method);
             return null;
         }
 
@@ -216,15 +187,14 @@ public class MasterActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if (listaRecuperadaWS != null) {
-                //ListAdapter adaptador = new ArrayAdapter<String>(MasterActivity.this, android.R.layout.simple_list_item_1, listaRecuperadaWS);
                 adaptador = new MyAdapter(MasterActivity.this, listaRecuperadaWS);
                 lista.setAdapter(adaptador);
             } else {
+                notificaError("Sin solicitudes pendientes.");
                 WebService ws = new WebService();
                 listaRecuperadaWS = ws.retornaItemsVacio();
                 adaptador = new MyAdapter(MasterActivity.this, listaRecuperadaWS);
                 lista.setAdapter(adaptador);
-                notificaError("No se recuperaron Tareas pendientes");
             }
         }
 
@@ -241,7 +211,5 @@ public class MasterActivity extends AppCompatActivity {
     private void notificaError(String mensaje) {
         Toast.makeText(MasterActivity.this, mensaje, Toast.LENGTH_LONG).show();
     }
-
-
 
 }
