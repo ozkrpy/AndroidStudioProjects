@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MasterActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class MasterActivity extends AppCompatActivity {
 
     private String[] listaRecuperada;
     private String method;
-    private List listaRecuperadaWS;
+    private ArrayList<Item> listaRecuperadaWS;
     private String user;
     private String pass;
 
@@ -50,6 +51,9 @@ public class MasterActivity extends AppCompatActivity {
     static final String[] Solicitudes = new String[]{
             "Lista Vacia"
     };
+    private MyAdapter adaptador;
+
+    ArrayList<Item> listaSolicitudes = new ArrayList<Item>();
 
     ListView mDrawerList;
     static final String[] items = new String[]{
@@ -134,15 +138,14 @@ public class MasterActivity extends AppCompatActivity {
 
         // 4 ListView
         lista = (ListView) findViewById(R.id.lista);
-        //ListAdapter adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Solicitudes);
-        ListAdapter adaptador = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Solicitudes);
-        lista.setAdapter(adaptador);
-
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 escribeLog("se hizo clic en el item: " + lista.getItemAtPosition(position));
-                String solicitudNumero = lista.getItemAtPosition(position).toString();
+                //String solicitudNumero = lista.getItemAtPosition(position).toString();
+                Item solicitudItem = (Item) lista.getItemAtPosition(position);
+                String solicitudNumero = solicitudItem.getTitle().toString();
+
                 Intent intent = new Intent(MasterActivity.this, TareaActivity.class);
                 intent.putExtra("tokenU", user);
                 intent.putExtra("tokenP", pass);
@@ -203,10 +206,9 @@ public class MasterActivity extends AppCompatActivity {
     private class ListarSolicitudes extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            method = "recuperaListaParametroObjeto";
+            method = "recuperaListaParametroRetorno";
             WebService ws = new WebService();
-            listaRecuperadaWS = ws.recuperaListaParametroObjeto(user,pass, method);
-            escribeLog("recupero de la clase WS lista: " + listaRecuperadaWS.toString());
+            listaRecuperadaWS = ws.recuperaLista(user, pass, method);
             return null;
         }
 
@@ -214,9 +216,14 @@ public class MasterActivity extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             if (listaRecuperadaWS != null) {
-                ListAdapter adaptador = new ArrayAdapter<String>(MasterActivity.this, android.R.layout.simple_list_item_1, listaRecuperadaWS);
+                //ListAdapter adaptador = new ArrayAdapter<String>(MasterActivity.this, android.R.layout.simple_list_item_1, listaRecuperadaWS);
+                adaptador = new MyAdapter(MasterActivity.this, listaRecuperadaWS);
                 lista.setAdapter(adaptador);
             } else {
+                WebService ws = new WebService();
+                listaRecuperadaWS = ws.retornaItemsVacio();
+                adaptador = new MyAdapter(MasterActivity.this, listaRecuperadaWS);
+                lista.setAdapter(adaptador);
                 notificaError("No se recuperaron Tareas pendientes");
             }
         }

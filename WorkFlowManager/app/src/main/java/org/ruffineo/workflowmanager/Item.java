@@ -8,6 +8,9 @@ public class Item {
     private String title;
     private String description;
 
+    public Item() {
+    }
+
     public Item(String title, String description) {
         super();
         this.title = title;
@@ -24,6 +27,10 @@ public class Item {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setDescription(String descripcion) {
+        this.description = descripcion;
     }
 
 
