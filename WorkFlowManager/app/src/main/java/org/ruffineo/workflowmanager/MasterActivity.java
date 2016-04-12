@@ -84,7 +84,7 @@ public class MasterActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
-        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.drawer_menu_item, items);
+        final ArrayAdapter adapter = new ArrayAdapter(this,R.layout.drawer_menu_item, items);
         mDrawerList.setAdapter(adapter);
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -106,7 +106,9 @@ public class MasterActivity extends AppCompatActivity {
                         finish();
                         break;
                 }
+                mDrawerList.setAdapter(adapter);
                 drawer.closeDrawer(mDrawerList);
+
             }
         });
         drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
