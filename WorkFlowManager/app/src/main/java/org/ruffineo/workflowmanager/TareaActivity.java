@@ -215,7 +215,8 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected Void doInBackground(String... params) {
             escribeLog("entro a doInBackground");
-            method = "recuperaTareasParametroObjeto";
+            //method = "recuperaTareasParametroObjeto";
+            method = "recuperaTarea";
             WebService ws = new WebService();
             tarea = ws.recuperaTarea(user, pass, solicitud, method);
             if (tarea == null) {

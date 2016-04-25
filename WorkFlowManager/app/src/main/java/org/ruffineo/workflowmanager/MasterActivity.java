@@ -177,7 +177,8 @@ public class MasterActivity extends AppCompatActivity {
     private class ListarSolicitudes extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            method = "recuperaListaParametroRetorno";
+            //method = "recuperaListaParametroRetorno";
+            method = "recuperaSolicitudesPendientes";
             WebService ws = new WebService();
             listaRecuperadaWS = ws.recuperaLista(user, pass, method);
             /* INTENCIONALMENTE SIMULAMOS PERDER LOS DATOS DE USUARIO */

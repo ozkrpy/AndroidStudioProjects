@@ -78,7 +78,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         @Override
         protected Void doInBackground(Void... params) {
             escribeLog("entro al doInBackground ValidarDatos");
-            method = "validarUsuarioParametroObjeto";
+            //method = "validarUsuarioParametroObjeto";
+            method = "validarUsuario";
             WebService ws = new WebService();
             Respuesta respuesta = ws.consultaUsuarioParametroObjeto(user, pass, method);
             escribeLog("recupero objeto respuesta - Codigo: " + respuesta.getCodigo() +" mensaje: " + respuesta.getMensaje() + " referencia: " + respuesta.getReferencia());

@@ -23,14 +23,18 @@ public class WebService {
 
     private static final String TAG = "WEBSERVICE_LOG";
 
-    private static final String NAMESPACE = "http://servicios.ws/";
-    private static final String IP = "190.52.175.153";//cuando se use desde una locacion externa
-    //private static final String IP = "192.168.1.3";//cuando se use una conexion WIFI local
-    private static final String URL = "http://" + IP + ":9999/WebApps/Servicios?WSDL";
+    //private static final String NAMESPACE = "http://servicios.ws/";
+    private static final String NAMESPACE = "http://operations.ws/";
+    //private static final String IP = "190.52.175.153";//cuando se use desde una locacion externa
+    private static final String IP = "10.133.22.190";//cuando se use una conexion WIFI local
+    //private static final String URL = "http://" + IP + ":9999/WebApps/Servicios?WSDL";
+    private static final String URL = "http://" + IP + ":9999/Mobile/Services?WSDL";
 
     private DatosUsuario datosUsuario;
 
     public Respuesta consultaUsuarioParametroObjeto(String user, String pass, String method) {
+        escribeLog("URL: " + URL);
+
         Respuesta respuesta = new Respuesta(0, "ER", "se inicializo correctamente en la APP");
 
         datosUsuario = new DatosUsuario(user, pass, "20160404");//TODO sending a correct date
@@ -44,7 +48,7 @@ public class WebService {
         escribeLog("Request : " + request.toString());
 
         PropertyInfo pi = new PropertyInfo();
-        pi.setName("datosUser");
+        pi.setName("datosUsuario");
         pi.setValue(datosUsuario);
         pi.setType(datosUsuario.getClass());
         request.addProperty(pi);
@@ -93,7 +97,7 @@ public class WebService {
         escribeLog("Request : " + request.toString());
 
         PropertyInfo pi = new PropertyInfo();
-        pi.setName("datosUser");
+        pi.setName("datosUsuario");
         pi.setValue(datosUsuario);
         pi.setType(datosUsuario.getClass());
         request.addProperty(pi);
@@ -144,7 +148,7 @@ public class WebService {
         escribeLog("Request : " + request.toString());
 
         PropertyInfo pi = new PropertyInfo();
-        pi.setName("datosUser");
+        pi.setName("datosUsuario");
         pi.setValue(datosUsuario);
         pi.setType(datosUsuario.getClass());
         request.addProperty(pi);
@@ -198,7 +202,7 @@ public class WebService {
         escribeLog("Request : " + request.toString());
 
         PropertyInfo pi = new PropertyInfo();
-        pi.setName("datosUser");
+        pi.setName("datosUsuario");
         pi.setValue(datosUsuario);
         pi.setType(datosUsuario.getClass());
         request.addProperty(pi);
