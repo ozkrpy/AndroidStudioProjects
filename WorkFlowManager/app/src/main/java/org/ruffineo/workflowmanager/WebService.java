@@ -26,7 +26,7 @@ public class WebService {
     //private static final String NAMESPACE = "http://servicios.ws/";
     private static final String NAMESPACE = "http://operations.ws/";
     //private static final String IP = "190.52.175.153";//cuando se use desde una locacion externa
-    private static final String IP = "10.133.22.190";//cuando se use una conexion WIFI local
+    private static final String IP = "10.133.23.35";//cuando se use una conexion WIFI local
     //private static final String URL = "http://" + IP + ":9999/WebApps/Servicios?WSDL";
     private static final String URL = "http://" + IP + ":9999/Mobile/Services?WSDL";
 
