@@ -11,15 +11,14 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class WebService {
 
     private static final String TAG = "WEBSERVICE_LOG";
 
     private static final String NAMESPACE = "http://operations.ws/";
-    //private static final String IP = "190.52.175.153";//cuando se use desde una locacion externa
-    private static final String IP = "192.168.1.13";//cuando se use una conexion WIFI local
+    private static final String IP = "190.52.175.153";//cuando se use desde una locacion externa
+    //private static final String IP = "192.168.1.51";//cuando se use una conexion WIFI local
     private static final String URL = "http://" + IP + ":9999/Mobile/Services?WSDL";
 
     private DatosUsuario datosUsuario;
@@ -61,14 +60,10 @@ public class WebService {
                 respuesta = respuestaObjeto;
                 escribeLog("Recupero: " + resultsRequestSOAP.toString());
             }
-            //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
-
         } catch (IOException e) {
-            //e.printStackTrace();
             escribeLog("IOException: " + e.getMessage());
             respuesta.setReferencia("catch: " + e.getMessage());
         } catch (XmlPullParserException e) {
-            //e.printStackTrace();
             escribeLog("XmlPullParserException: " + e.getMessage());
             respuesta.setReferencia("catch: " + e.getMessage());
         }
@@ -104,8 +99,6 @@ public class WebService {
         try {
             androidHttpTransport.call(SOAP_ACTION, envelope);
             try {
-                //List resultsRequestSOAP = (List) envelope.getResponse();
-                //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
                 SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
                 if (resultsRequestSOAP != null) {
                     escribeLog("Transport: " + androidHttpTransport.toString());
@@ -114,16 +107,12 @@ public class WebService {
                     respuesta = respuestaObjeto;
                     escribeLog("Recupero: " + resultsRequestSOAP.toString());
                 }
-                //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
             } catch (Exception e) {
                 escribeLog("Error al castear resultado: " + e.getMessage());
             }
-
         } catch (IOException e) {
-            //e.printStackTrace();
             escribeLog("IOException: " + e.getMessage());
         } catch (XmlPullParserException e) {
-            //e.printStackTrace();
             escribeLog("XmlPullParserException: " + e.getMessage());
         }
 
@@ -148,7 +137,6 @@ public class WebService {
         pi.setType(datosUsuario.getClass());
         request.addProperty(pi);
 
-
         escribeLog("Properties added: " + request.toString());
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.setOutputSoapObject(request);
@@ -159,35 +147,49 @@ public class WebService {
             escribeLog("Transport executed call");
             escribeLog("Class envelope: " + envelope.getClass().toString());
 
-            try {
-                java.util.Vector<SoapObject> rs = (java.util.Vector<SoapObject>) envelope.getResponse();
-                if (rs != null) {
-                    escribeLog("Vector retorno datos, envelope response: " + rs.toString());
-
-                    for (SoapObject cs : rs)
-                    {
-                        Item rp = new Item();
-
-                        rp.setDescription(cs.getProperty(0).toString());
-                        rp.setTitle(cs.getProperty(1).toString());
-
-                        escribeLog("Titulo = "+rp.getTitle() +" Descripcion = " + rp.getDescription());
-
-                        returnlist.add(rp);
+            if (envelope.getResponse().getClass().equals(java.util.Vector.class)) {
+                try {
+                    escribeLog("CLASE DE RESPUESTA:" + envelope.getResponse().getClass().toString());
+                    java.util.Vector<SoapObject> rs = (java.util.Vector<SoapObject>) envelope.getResponse();
+                    if (rs != null) {
+                        escribeLog("Vector retorno datos, envelope response: " + rs.toString());
+                        for (SoapObject cs : rs) {
+                            Item rp = new Item();
+                            rp.setDescription(cs.getProperty(0).toString());
+                            rp.setTitle(cs.getProperty(1).toString());
+                            escribeLog("Titulo = " + rp.getTitle() + " Descripcion = " + rp.getDescription());
+                            returnlist.add(rp);
+                        }
+                        escribeLog("Recupero: " + rs.toString());
+                    } else {
+                        escribeLog("Vector de respuesta retorno vacio.");
+                        return null;
                     }
-
-                    escribeLog("Recupero: " + rs.toString());
-                } else {
-                    escribeLog("Vector de respuesta retorno vacio.");
+                } catch (Exception e) {
+                    escribeLog("Error al castear resultado: " + e.getMessage());
                     return null;
-
                 }
-
-            } catch (Exception e) {
-                escribeLog("Error al castear resultado: " + e.getMessage());
-                return null;
+            } else if (envelope.getResponse().getClass().equals(org.ksoap2.serialization.SoapObject.class)) {
+                try {
+                    escribeLog("CLASE DE RESPUESTA:" + envelope.getResponse().getClass().toString());
+                    SoapObject rs = (SoapObject) envelope.getResponse();
+                    if (rs != null) {
+                        escribeLog("Objeto Recuperado, envelope response: " + rs.toString());
+                        Item rp = new Item();
+                        rp.setDescription(rs.getProperty(0).toString());
+                        rp.setTitle(rs.getProperty(1).toString());
+                        escribeLog("Titulo = " + rp.getTitle() + " Descripcion = " + rp.getDescription());
+                        returnlist.add(rp);
+                        escribeLog("Recupero: " + rs.toString());
+                    } else {
+                        escribeLog("Vector de respuesta retorno vacio.");
+                        return null;
+                    }
+                } catch (Exception e) {
+                    escribeLog("Error al castear resultado: " + e.getMessage());
+                    return null;
+                }
             }
-
         } catch (IOException e) {
             escribeLog("IOException: " + e.getMessage());
             return null;
@@ -195,7 +197,6 @@ public class WebService {
             escribeLog("XmlPullParserException: " + e.getMessage());
             return null;
         }
-
         return returnlist;
     }
 
@@ -234,8 +235,6 @@ public class WebService {
         try {
             androidHttpTransport.call(SOAP_ACTION, envelope);
             try {
-                //List resultsRequestSOAP = (List) envelope.getResponse();
-                //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
                 SoapObject resultsRequestSOAP = (SoapObject) envelope.getResponse();
                 if (resultsRequestSOAP != null) {
                     escribeLog("Transport: " + androidHttpTransport.toString());
@@ -244,16 +243,13 @@ public class WebService {
                     respuesta = respuestaObjeto;
                     escribeLog("Recupero: " + resultsRequestSOAP.toString());
                 }
-                //SoapObject resultsRequestSOAP = (SoapObject) envelope.bodyIn;
             } catch (Exception e) {
                 escribeLog("Error al castear resultado: " + e.getMessage());
             }
 
         } catch (IOException e) {
-            //e.printStackTrace();
             escribeLog("IOException: " + e.getMessage());
         } catch (XmlPullParserException e) {
-            //e.printStackTrace();
             escribeLog("XmlPullParserException: " + e.getMessage());
         }
 
