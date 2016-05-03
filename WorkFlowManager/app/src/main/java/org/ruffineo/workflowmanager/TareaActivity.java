@@ -51,6 +51,8 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
     private Tarea tarea = null;
     private String method;
     private String recupero = "ER";
+    private String nuevoEstado = "PE";
+    private Respuesta respuesta = new Respuesta(0, "ER", "Inicializado en la app");
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -156,15 +158,21 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.botonAprobacionTarea1:
                 escribeLog("Se hizo clic en el boton: " + boton1.getText());
-                finish();
+                nuevoEstado = "CA";
                 break;
             case R.id.botonAprobacionTarea2:
                 escribeLog("Se hizo clic en el boton: " + boton2.getText());
+                nuevoEstado = "RE";
                 break;
             case R.id.botonAprobacionTarea3:
                 escribeLog("Se hizo clic en el boton: " + boton3.getText());
+                nuevoEstado = "PE";
                 break;
         }
+
+        ActualizaEstadoSolicitud actualizaEstadoSolicitud = new ActualizaEstadoSolicitud();
+        actualizaEstadoSolicitud.execute();
+
     }
 
     private void escribeLog(String texto) {
@@ -284,5 +292,41 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
     private void notificaError(String mensaje) {
         Toast.makeText(TareaActivity.this, mensaje, Toast.LENGTH_LONG).show();
     }
+
+    private class ActualizaEstadoSolicitud extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... params) {
+            escribeLog("entro a doInBackground ActualizaEstadoSolicitud");
+            //method = "recuperaTareasParametroObjeto";
+            method = "actualizaEstadoSolicitud";
+            WebService ws = new WebService();
+            respuesta = ws.actualizaEstadoSolicitud(user, pass, solicitud, nuevoEstado, method);
+            if (respuesta.getCodigo() == 0) {
+                recupero = "ER";
+            } else if (respuesta.getCodigo() == 1){
+                recupero = "OK";
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            escribeLog("entro a onPreExecute");
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            escribeLog("entro a onPostExecute, recupero datos: " + recupero.toString());
+            if (recupero.equals("OK")) {
+                notificaError(respuesta.getReferencia());
+                finish();
+            } else {
+                notificaError("No se actualizo correctamente.");
+            }
+        }
+    }
+
 }
 

@@ -215,4 +215,14 @@ public class MasterActivity extends AppCompatActivity {
         Toast.makeText(MasterActivity.this, mensaje, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            ListarSolicitudes listaRetorno = new ListarSolicitudes();
+            listaRetorno.execute();
+        } catch (Exception e) {
+            escribeLog("Error al invocar la carga del WS: " + e.getMessage());
+        }
+    }
 }
