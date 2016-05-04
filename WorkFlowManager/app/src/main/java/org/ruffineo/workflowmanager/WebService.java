@@ -146,7 +146,10 @@ public class WebService {
             androidHttpTransport.call(SOAP_ACTION, envelope);
             escribeLog("Transport executed call");
             escribeLog("Class envelope: " + envelope.getClass().toString());
-
+        if (envelope.getResponse() == null) {
+            escribeLog("getResponse fue nulo");
+            return null;
+        } else {
             if (envelope.getResponse().getClass().equals(java.util.Vector.class)) {
                 try {
                     escribeLog("CLASE DE RESPUESTA:" + envelope.getResponse().getClass().toString());
@@ -190,6 +193,7 @@ public class WebService {
                     return null;
                 }
             }
+        }
         } catch (IOException e) {
             escribeLog("IOException: " + e.getMessage());
             return null;
