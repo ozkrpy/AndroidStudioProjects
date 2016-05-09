@@ -169,11 +169,6 @@ public class MasterActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void metodoFinalizarActividad() {
-        escribeLog("Se invoco la finalizacion de la aplicacion.");
-        finish();
-    }
-
     private class ListarSolicitudes extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
@@ -213,6 +208,11 @@ public class MasterActivity extends AppCompatActivity {
 
     private void notificaError(String mensaje) {
         Toast.makeText(MasterActivity.this, mensaje, Toast.LENGTH_LONG).show();
+    }
+
+    private void metodoFinalizarActividad() {
+        escribeLog("Se invoco la finalizacion de la actividad.");
+        finish();
     }
 
     @Override
