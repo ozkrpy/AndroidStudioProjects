@@ -134,8 +134,12 @@ public class MasterActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Se abrira a la aplicacion de MAILS", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Se abrira a la aplicacion de MAILS", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.setType("text/email");
+                startActivity(Intent.createChooser(email,"Notificacion manual"));
+
             }
         });
 
@@ -172,12 +176,9 @@ public class MasterActivity extends AppCompatActivity {
     private class ListarSolicitudes extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-            //method = "recuperaListaParametroRetorno";
             method = "recuperaSolicitudesPendientes";
             WebService ws = new WebService();
             listaRecuperadaWS = ws.recuperaLista(user, pass, method);
-            /* INTENCIONALMENTE SIMULAMOS PERDER LOS DATOS DE USUARIO */
-            //listaRecuperadaWS = ws.recuperaLista("user", pass, method);
             return null;
         }
 

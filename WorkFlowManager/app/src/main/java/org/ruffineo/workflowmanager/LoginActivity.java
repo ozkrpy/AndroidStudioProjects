@@ -113,8 +113,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(i);
                 finish();
             } else {
-                escribeLog("Usuario / contraseña no validos. Resultado: " + validado);
-                notificaError("Usuario/Contraseña no validos." + mensaje);
+                escribeLog("Usuario / contraseña no validos. Resultado: " + validado + " " + mensaje);
+                notificaError("Usuario/Contraseña no validados. " + mensaje);
             }
         }
     }
