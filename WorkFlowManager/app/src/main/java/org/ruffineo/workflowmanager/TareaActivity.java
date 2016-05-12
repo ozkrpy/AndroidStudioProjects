@@ -1,8 +1,10 @@
 package org.ruffineo.workflowmanager;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -52,6 +54,7 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
     private String method;
     private String recupero = "ER";
     private String nuevoEstado = "PE";
+    private String estadoSolicitud = "";
     private Respuesta respuesta = new Respuesta(0, "ER", "Inicializado en la app");
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -159,20 +162,44 @@ public class TareaActivity extends AppCompatActivity implements View.OnClickList
             case R.id.botonAprobacionTarea1:
                 escribeLog("Se hizo clic en el boton: " + boton1.getText());
                 nuevoEstado = "CA";
+                estadoSolicitud = "cancelar";
                 break;
             case R.id.botonAprobacionTarea2:
                 escribeLog("Se hizo clic en el boton: " + boton2.getText());
                 nuevoEstado = "RE";
+                estadoSolicitud = "rechazar";
                 break;
             case R.id.botonAprobacionTarea3:
                 escribeLog("Se hizo clic en el boton: " + boton3.getText());
                 nuevoEstado = "PE";
+                estadoSolicitud = "aprobar";
                 break;
         }
 
-        ActualizaEstadoSolicitud actualizaEstadoSolicitud = new ActualizaEstadoSolicitud();
-        actualizaEstadoSolicitud.execute();
+        procesarSolicitud();
+    }
 
+    private void procesarSolicitud() {
+        escribeLog("Entro a procesar solicitud");
+        AlertDialog confirma = new AlertDialog.Builder(this).create();
+        confirma.setTitle("Confirmar");
+        confirma.setMessage("Desea " + estadoSolicitud + " la solicitud?");
+        confirma.setButton(AlertDialog.BUTTON_NEGATIVE, "Atras", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                escribeLog("Se selecciono atras");
+                dialog.cancel();
+            }
+        });
+        confirma.setButton(AlertDialog.BUTTON_POSITIVE, "Confirma", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                escribeLog("Se procesara la solicitud");
+                ActualizaEstadoSolicitud actualizaEstadoSolicitud = new ActualizaEstadoSolicitud();
+                actualizaEstadoSolicitud.execute();
+            }
+        });
+        confirma.show();
     }
 
     private void escribeLog(String texto) {
