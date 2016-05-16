@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp">
+
+    <TextView
+        android:id="@+id/login_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="22dp"
+        android:gravity="center_horizontal"
+        android:text="entrar"
+        android:textColor="#000"
+        android:textSize="26sp"
+        android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/editText_user"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/user"
+            android:drawableTint="#FFF"
+            android:fontFamily="sans-serif"
+            android:hint="usuario"
+            android:singleLine="true"
+            android:backgroundTint="#455A64"
+            android:text="oscar"/>
+
+        <EditText
+            android:id="@+id/editText_pass"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/lock"
+            android:drawableTint="#FFF"
+            android:fontFamily="sans-serif"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:backgroundTint="#455A64"
+            android:text="oscar"/>
+    <Button
+        android:id="@+id/button_ingresar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="22dp"
+        android:background="#455A64"
+        android:text="login"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar_ejecucion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
+    <ListView
+        android:id="@+id/lista"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        />
+
+</LinearLayout>

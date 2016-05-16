@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //method = "validarUsuarioParametroObjeto";
             method = "validarUsuario";
             WebService ws = new WebService();
-            Respuesta respuesta = ws.consultaUsuarioParametroObjeto(user, pass, method);
+            Respuesta respuesta = ws.consultaUsuario(user, pass, method);
             escribeLog("recupero objeto respuesta - Codigo: " + respuesta.getCodigo() +" mensaje: " + respuesta.getMensaje() + " referencia: " + respuesta.getReferencia());
             if (respuesta.getCodigo() == 1) {
                 validado = "OK";

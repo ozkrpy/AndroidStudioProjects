@@ -5,4 +5,12 @@
         <item>@string/tarea_estado2</item>
         <item>@string/tarea_estado3</item>
     </string-array>
+    <string-array name="listArray">
+        <item>Solo por Wi-Fi</item>
+        <item>En cualquier red</item>
+    </string-array>
+    <string-array name="listValues">
+        <item>Wi-Fi</item>
+        <item>Cualquiera</item>
+    </string-array>
 </resources>
