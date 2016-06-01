@@ -17,12 +17,27 @@
         android:summary="Tipo de conexion disponible para descargar solicitudes."
         android:key="listPref"
         android:defaultValue="Wi-Fi"
-        android:entries="@array/listArray"
-        android:entryValues="@array/listValues"
+        android:entries="@array/networkArray"
+        android:entryValues="@array/networkListValues"
         />
     <CheckBoxPreference
         android:title="Mostrar sumario"
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:summary="Mostrar la descripcion de cada solicitud."
         android:key="summaryPref" />
+    <CheckBoxPreference
+        android:title="Activar notificaciones"
+        android:defaultValue="false"
+        android:summary="Permite a la aplicacion consultar si existen nuevas Solicitudes pendientes."
+        android:key="notifPref" />
+    <ListPreference
+        android:title="Intervalo de Consultas"
+        android:summary="Establece el intervalo de tiempo para la verificacion de solicitudes pendientes."
+        android:key="durationPref"
+        android:dependency="notifPref"
+        android:defaultValue="Wi-Fi"
+        android:entries="@array/durationArray"
+        android:entryValues="@array/durationListValues"
+        />
+
 </PreferenceScreen>

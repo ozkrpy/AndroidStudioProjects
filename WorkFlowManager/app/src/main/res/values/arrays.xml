@@ -5,12 +5,26 @@
         <item>@string/tarea_estado2</item>
         <item>@string/tarea_estado3</item>
     </string-array>
-    <string-array name="listArray">
+    <string-array name="networkArray">
         <item>Solo por Wi-Fi</item>
         <item>En cualquier red</item>
     </string-array>
-    <string-array name="listValues">
+    <string-array name="networkListValues">
         <item>Wi-Fi</item>
         <item>Cualquiera</item>
+    </string-array>
+    <string-array name="durationArray">
+        <item>0.5 hs.</item>
+        <item>1 hs.</item>
+        <item>2 hs.</item>
+        <item>6 hs.</item>
+        <item>12 hs.</item>
+    </string-array>
+    <string-array name="durationListValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>6</item>
+        <item>12</item>
     </string-array>
 </resources>
