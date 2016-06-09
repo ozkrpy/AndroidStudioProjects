@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">FuelWatcher</string>
+    <string name="titulo">Cargas de Combustible</string>
+    <string name="titulo_recargas">Nueva Carga de Combustible</string>
+    <string name="boton_agregar">Nueva Recarga</string>
+    <string name="boton_consulta">Historial Recargas</string>
+    <string name="boton_nuevo_vehiculo">Modificar Parametros del Combustible</string>
+    <string name="firma">Powered by: MVR Apps</string>
+    <string name="hint_fecha">Fecha de la carga</string>
+    <string name="hint_monto">Monto de la carga</string>
+    <string name="hint_odometro">Odometro</string>
+    <string name="litros">Litros:</string>
+    <string name="boton_confirmar">Confirmar</string>
+
+</resources>

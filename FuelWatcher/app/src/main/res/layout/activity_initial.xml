@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.ozkrp.fuelwatcher.InitialActivity"
+    android:id="@+id/main_container">
+
+    <TextView
+        android:id="@+id/textoTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        style="@style/Base.TextAppearance.AppCompat.Title"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textoTitulo"
+        android:layout_marginTop="@dimen/margin_between"
+        android:id="@+id/botonAgregar"
+        android:text="@string/boton_agregar"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonAgregar"
+        android:layout_marginTop="@dimen/margin_between"
+        android:id="@+id/botonConsultar"
+        android:text="@string/boton_consulta"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/botonConsultar"
+        android:layout_marginTop="@dimen/margin_between"
+        android:id="@+id/botonVehiculo"
+        android:text="@string/boton_nuevo_vehiculo"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/firma"
+        style="@style/Base.TextAppearance.AppCompat.Caption"/>
+    
+</RelativeLayout>

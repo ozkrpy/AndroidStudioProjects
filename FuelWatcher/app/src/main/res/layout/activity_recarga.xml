@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.ozkrp.fuelwatcher.RecargaActivity"
+    android:id="@+id/recargas_container"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/textoTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_recargas"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_marginBottom="@dimen/margin_between"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:id="@+id/editText_fecha_recarga"
+        android:layout_below="@+id/textoTitulo"
+        android:layout_alignParentStart="true"
+        android:hint="@string/hint_fecha"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:id="@+id/editText_odometro"
+        android:hint="@string/hint_odometro"
+        android:layout_below="@+id/textoTitulo"
+        android:layout_alignParentEnd="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:id="@+id/editText_monto_recarga"
+        android:layout_below="@+id/editText_fecha_recarga"
+        android:layout_alignParentStart="true"
+        android:hint="@string/hint_monto"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/litros"
+        android:id="@+id/textoLitros"
+        android:gravity="center_vertical"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_below="@+id/editText_odometro"
+        android:layout_toStartOf="@+id/textoLitrosNumero"
+        android:layout_alignBottom="@+id/editText_monto_recarga" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="0"
+        android:id="@+id/textoLitrosNumero"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBottom="@+id/textoLitros"
+        android:layout_alignEnd="@+id/editText_odometro"
+        android:layout_below="@+id/editText_odometro" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText_monto_recarga"
+        android:id="@+id/boton_confirmar_carga"
+        android:text="@string/boton_confirmar"
+        android:layout_marginTop="@dimen/margin_between"/>
+
+</RelativeLayout>
