@@ -6,7 +6,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.ozkrp.fuelwatcher.InitialActivity"
-    android:id="@+id/main_container">
+    android:id="@+id/main_container"
+    android:gravity="center_vertical">
 
     <TextView
         android:id="@+id/textoTitulo"
@@ -22,26 +23,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textoTitulo"
         android:layout_marginTop="@dimen/margin_between"
-        android:id="@+id/botonAgregar"
+        android:id="@+id/botonAgregarInitial"
         android:text="@string/boton_agregar"
         android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/botonAgregar"
+        android:layout_below="@+id/botonAgregarInitial"
         android:layout_marginTop="@dimen/margin_between"
-        android:id="@+id/botonConsultar"
+        android:id="@+id/botonConsultarInitial"
         android:text="@string/boton_consulta"
         android:layout_centerHorizontal="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/botonConsultar"
+        android:layout_below="@+id/botonConsultarInitial"
         android:layout_marginTop="@dimen/margin_between"
-        android:id="@+id/botonVehiculo"
-        android:text="@string/boton_nuevo_vehiculo"
+        android:id="@+id/botonVehiculoInitial"
+        android:text="@string/boton_parametros"
         android:layout_centerHorizontal="true"/>
 
     <TextView

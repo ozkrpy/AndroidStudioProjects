@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.ozkrp.fuelwatcher.ParametrosActivity"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+                <TextView
+                android:id="@+id/textoTituloParametros"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/titulo_parametros"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                />
+
+            <TextView
+                android:id="@+id/textoParametroVehiculo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parametro_vehiculo"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_Parametros_Marca"
+                android:hint="@string/hint_marca"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_Parametros_Modelo"
+                android:hint="@string/hint_modelo"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_Parametros_Anno"
+                android:hint="@string/hint_anno"
+                android:inputType="number"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_Parametros_Odometro"
+                android:hint="@string/hint_odometro_parametro"
+                android:inputType="number"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/botonAltaVehiculo"
+                android:text="@string/boton_alta_vehiculo"/>
+
+            <TextView
+                android:id="@+id/textoParametroCombustible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/parametro_combustible"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_Parametros_TipoCombusible"
+                android:hint="@string/hint_tipoCombustible"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_Parametros_PrecioCombustible"
+                android:hint="@string/hint_precioCombustible"
+                android:inputType="number"/>
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/botonAltaCombustible"
+                android:text="@string/boton_alta_combustible"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

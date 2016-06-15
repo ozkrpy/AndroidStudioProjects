@@ -2,14 +2,28 @@
     <string name="app_name">FuelWatcher</string>
     <string name="titulo">Cargas de Combustible</string>
     <string name="titulo_recargas">Nueva Carga de Combustible</string>
+    <string name="titulo_parametros">Parametrizaciones</string>
     <string name="boton_agregar">Nueva Recarga</string>
     <string name="boton_consulta">Historial Recargas</string>
-    <string name="boton_nuevo_vehiculo">Modificar Parametros del Combustible</string>
+    <string name="boton_parametros">Parametrizaciones</string>
+    <string name="boton_alta_vehiculo">Agregar Vehiculo</string>
+    <string name="boton_alta_combustible">Registrar combustible</string>
+    <string name="boton_consulta_vehiculo">Consultar vehiculos registrados</string>
+    <string name="boton_consulta_combustible">Consultar combustibles registrados</string>
     <string name="firma">Powered by: MVR Apps</string>
     <string name="hint_fecha">Fecha de la carga</string>
     <string name="hint_monto">Monto de la carga</string>
     <string name="hint_odometro">Odometro</string>
+    <string name="hint_marca">Marca del vehiculo</string>
+    <string name="hint_modelo">Modelo del vehiculo</string>
+    <string name="hint_anno">Año del vehiculo</string>
     <string name="litros">Litros:</string>
+    <string name="hint_odometro_parametro">Kilometraje del vehiculo</string>
+    <string name="hint_tipoCombustible">Tipo de combustible</string>
+    <string name="hint_precioCombustible">Precio del combustible</string>
     <string name="boton_confirmar">Confirmar</string>
+    <string name="parametro_vehiculo">Datos del Vehiculo</string>
+    <string name="parametro_combustible">Datos del Combustible</string>
+
 
 </resources>
