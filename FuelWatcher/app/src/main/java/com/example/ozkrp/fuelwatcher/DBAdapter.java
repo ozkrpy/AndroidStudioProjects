@@ -21,7 +21,7 @@ public class DBAdapter {
     private SQLiteDatabase db;
 
     private String DATABASE_NAME = "fuel_watcher";
-    private int DATABASE_VERSION = 13;
+    private int DATABASE_VERSION = 15;
 
     public DBAdapter(Context context) {
         this.context = context;
