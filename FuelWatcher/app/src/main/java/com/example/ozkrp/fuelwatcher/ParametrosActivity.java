@@ -66,10 +66,30 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
             case R.id.botonAltaVehiculo:
                 altaVehiculo();
+                vaciarVistasVehiculo();
                 break;
             case R.id.botonAltaCombustible:
                 altaCombustible();
+                vaciarVistasCombustible();
                 break;
         }
+    }
+
+    private void vaciarVistasCombustible() {
+        tipoCombustible.setText("");
+        precioCombustible.setText("");
+    }
+
+    private void vaciarVistasVehiculo() {
+        marca.setText("");
+        modelo.setText("");
+        anno.setText("");
+        odometro.setText("");
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        dbAdapter.closeDataBaseConnection();
     }
 }

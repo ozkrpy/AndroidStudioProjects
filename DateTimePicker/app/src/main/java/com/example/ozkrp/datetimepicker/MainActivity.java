@@ -1,13 +1,20 @@
 package com.example.ozkrp.datetimepicker;
 
+import android.content.ClipData;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -20,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements
     String fechaFormateada;
     String horaFormateada;
     int contador;
+    Spinner spinnerCombustible;
+    private DBAdapter dbAdapter;
 
 
     @Override
@@ -29,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         calendar = Calendar.getInstance();
+
+        dbAdapter = new DBAdapter(this);
+        dbAdapter.openDataBaseConnection();
+        //dbAdapter.altaCombustible("Diesel comun", 4270);
+        //dbAdapter.altaCombustible("Diesel podium", 5680);
 
         fecha = (EditText) findViewById(R.id.editText_fecha);
         fecha.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +54,35 @@ public class MainActivity extends AppCompatActivity implements
             }
         });
 
+        spinnerCombustible = (Spinner) findViewById(R.id.spinner_combustible);
+        cargarListados();
+    }
 
+    private void cargarListados() {
+        ArrayList<ItemSpinner> listaCombustibles = new ArrayList<ItemSpinner>();
+        listaCombustibles = dbAdapter.recuperaCombustibles();
+        ArrayAdapter<ItemSpinner> combustibles = new ArrayAdapter<ItemSpinner>(this, android.R.layout.simple_spinner_dropdown_item, listaCombustibles);
+        if (combustibles != null) {
+            spinnerCombustible.setAdapter(combustibles);
+            spinnerCombustible.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    Log.i("SPINN","Entro al onItemSelectedListener");
+                    ItemSpinner itemSeleccionado = (ItemSpinner) parent.getSelectedItem();
+                    Log.i("SPINN","ID: "+itemSeleccionado.getCodigo()
+                            +",  Descripcion : "+itemSeleccionado.getDescripcion());
+                    Toast.makeText(MainActivity.this,
+                            "Country ID: "+itemSeleccionado.getCodigo()
+                                    +",  Country Name : "+itemSeleccionado.getDescripcion(), Toast.LENGTH_LONG).show();
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
     }
 
     @Override

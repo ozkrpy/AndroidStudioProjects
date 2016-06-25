@@ -1,5 +1,6 @@
 package com.example.ozkrp.fuelwatcher;
 
+import android.content.ClipData;
 import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -9,11 +10,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ import java.util.Date;
 public class RecargaActivity extends AppCompatActivity implements
         DatePickerFragment.DatePickerListener, TimePickerFragment.TimePickerListener{
 
+    private static final String TAG = "ALTA";
     /*Vistas en la actividad principal*/
     Button botonConfirmar;
     EditText fechaRecarga;
@@ -37,6 +41,10 @@ public class RecargaActivity extends AppCompatActivity implements
     private Calendar calendar;
     private FragmentManager fm;
     String cadenaFecha = null;
+    Date date = null;
+    int codigoVehiculo;
+    int codigoCombustible;
+    int recuperarPrecioCombustible;
 
     /*Database connector*/
     private DBAdapter dbAdapter;
@@ -94,9 +102,8 @@ public class RecargaActivity extends AppCompatActivity implements
     private void cambiaLitros() {
 
         int dinero = Integer.parseInt(montoRecarga.getText().toString());
-        double litros = dinero / (double) 5380;
+        double litros = dinero / (double) recuperarPrecioCombustible;
         calculoLitrosCargados = String.valueOf(String.format("%.2f", litros));
-        Log.i("ALTA","Monto de la recarga: " + montoRecarga.getText() + " dinero: " + dinero + " litros: " + calculoLitrosCargados);
         litrosCargados.setText(calculoLitrosCargados);
     }
 
@@ -120,29 +127,68 @@ public class RecargaActivity extends AppCompatActivity implements
     }
 
     private void procesarNuevaCarga() {
+        int odometroAltaRecarga = Integer.parseInt(odometro.getText().toString().trim());
+        int montoAltaRecarga = Integer.parseInt(montoRecarga.getText().toString());
+        double litrosAltaRecarga = Double.parseDouble(litrosCargados.getText().toString());
+
+        Log.i(TAG, "Fecha: " + cadenaFecha);
+        Log.i(TAG, "Odometro al momento de la carga: " + odometroAltaRecarga);
+        Log.i(TAG, "Monto Gs.: " + montoAltaRecarga);
+        Log.i(TAG, "Litros cargados: " + litrosAltaRecarga);
+        Log.i(TAG, "Combustible: " + codigoCombustible);
+        Log.i(TAG, "Vehiculo: " + codigoVehiculo);
+
+        dbAdapter.altaRecarga(cadenaFecha, odometroAltaRecarga, montoAltaRecarga, litrosAltaRecarga, codigoCombustible, codigoVehiculo);
         finish();
     }
 
     private void cargarListados() {
-        ArrayList<String> listaVehiculos = new ArrayList<String>();
+        ArrayList<ItemSpinner> listaVehiculos = new ArrayList<ItemSpinner>();
         listaVehiculos = dbAdapter.recuperaVehiculos();
-        ArrayAdapter<String> vehiculos = new ArrayAdapter<String>(RecargaActivity.this, android.R.layout.simple_list_item_1, listaVehiculos);
-        ArrayList<String> listaCombustibles = new ArrayList<String>();
+        ArrayAdapter<ItemSpinner> vehiculos = new ArrayAdapter<ItemSpinner>(RecargaActivity.this, android.R.layout.simple_spinner_dropdown_item, listaVehiculos);
+        ArrayList<ItemSpinner> listaCombustibles = new ArrayList<ItemSpinner>();
         listaCombustibles = dbAdapter.recuperaCombustibles();
-        ArrayAdapter<String> combustibles = new ArrayAdapter<String>(RecargaActivity.this, android.R.layout.simple_list_item_1, listaCombustibles);
-        if (vehiculos != null)
+        ArrayAdapter<ItemSpinner> combustibles = new ArrayAdapter<ItemSpinner>(RecargaActivity.this, android.R.layout.simple_spinner_dropdown_item, listaCombustibles);
+        if (vehiculos != null) {
             spinnerVehiculos.setAdapter(vehiculos);
-        if (combustibles != null)
+            spinnerVehiculos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ItemSpinner itemSeleccionado = (ItemSpinner) parent.getSelectedItem();
+                    codigoVehiculo = itemSeleccionado.getCodigo();
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+        }
+        if (combustibles != null) {
             spinnerCombustibles.setAdapter(combustibles);
+            spinnerCombustibles.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ItemSpinner itemSeleccionado = (ItemSpinner) parent.getSelectedItem();
+                    codigoCombustible = itemSeleccionado.getCodigo();
+                    recuperarPrecioCombustible = dbAdapter.recuperaPrecioCombustible(codigoCombustible);
+
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });}
     }
 
     @Override
     public void onDateSet(int year, int month, int day)
     {
-        // Set selected year, month and day in calendar object
         calendar.set(year, month, day);
 
-        // Start Time dialog
         TimePickerFragment timeDialog = new TimePickerFragment();
         timeDialog.show(fm, "fragment_time");
 
@@ -154,15 +200,20 @@ public class RecargaActivity extends AppCompatActivity implements
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
 
-        Date date = calendar.getTime();
+        date = calendar.getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             cadenaFecha = format1.format(date);
-            Log.i("CALENDAR", cadenaFecha);
             fechaRecarga.setText(cadenaFecha);
         } catch (Exception e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            Log.i("ERROR", "Mensaje: " + e1.getMessage());
         }
+    }
+
+
+    @Override
+    public void finish() {
+        super.finish();
+        dbAdapter.closeDataBaseConnection();
     }
 }

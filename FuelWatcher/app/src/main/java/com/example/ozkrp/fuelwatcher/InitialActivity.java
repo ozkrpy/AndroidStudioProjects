@@ -33,6 +33,8 @@ public class InitialActivity extends AppCompatActivity implements View.OnClickLi
                 startActivity(i);
                 break;
             case R.id.botonConsultarInitial:
+                Intent j = new Intent(InitialActivity.this, ReporteActivity.class);
+                startActivity(j);
                 break;
             case R.id.botonVehiculoInitial:
                 Intent k = new Intent(InitialActivity.this, ParametrosActivity.class);

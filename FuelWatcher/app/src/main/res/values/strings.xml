@@ -24,6 +24,7 @@
     <string name="boton_confirmar">Confirmar</string>
     <string name="parametro_vehiculo">Datos del Vehiculo</string>
     <string name="parametro_combustible">Datos del Combustible</string>
+    <string name="titulo_reporte">Reportes de cargas</string>
 
 
 </resources>

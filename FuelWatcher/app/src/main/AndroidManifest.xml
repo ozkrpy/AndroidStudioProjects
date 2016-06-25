@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".RecargaActivity" />
-        <activity android:name=".ParametrosActivity"></activity>
+        <activity android:name=".ParametrosActivity" />
+        <activity android:name=".ReporteActivity"></activity>
     </application>
 
 </manifest>
