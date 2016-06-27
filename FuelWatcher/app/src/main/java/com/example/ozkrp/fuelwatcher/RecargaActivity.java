@@ -131,12 +131,9 @@ public class RecargaActivity extends AppCompatActivity implements
         int montoAltaRecarga = Integer.parseInt(montoRecarga.getText().toString());
         double litrosAltaRecarga = Double.parseDouble(litrosCargados.getText().toString());
 
-        Log.i(TAG, "Fecha: " + cadenaFecha);
-        Log.i(TAG, "Odometro al momento de la carga: " + odometroAltaRecarga);
-        Log.i(TAG, "Monto Gs.: " + montoAltaRecarga);
-        Log.i(TAG, "Litros cargados: " + litrosAltaRecarga);
-        Log.i(TAG, "Combustible: " + codigoCombustible);
-        Log.i(TAG, "Vehiculo: " + codigoVehiculo);
+        Log.i(TAG, "Fecha: " + cadenaFecha + " Odometro al momento de la carga: " + odometroAltaRecarga
+                + " Monto Gs.: " + montoAltaRecarga + " Litros cargados: " + litrosAltaRecarga
+                + " Combustible: " + codigoCombustible + " Vehiculo: " + codigoVehiculo);
 
         dbAdapter.altaRecarga(cadenaFecha, odometroAltaRecarga, montoAltaRecarga, litrosAltaRecarga, codigoCombustible, codigoVehiculo);
         finish();

@@ -10,7 +10,6 @@ import android.util.Log;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class DBAdapter {
@@ -78,7 +77,7 @@ public class DBAdapter {
     }
 
     public void altaVehiculo(String marca, int anno, String modelo, int odometro) {
-        Log.i("DB", "Vehiculo: " + marca + " - " + modelo + " - " + anno + " - " + odometro);
+        Log.i(TAG, "Vehiculo: " + marca + " - " + modelo + " - " + anno + " - " + odometro);
 
         ContentValues cv = new ContentValues();
         cv.put("marca", marca);
@@ -90,7 +89,7 @@ public class DBAdapter {
     }
 
     public void altaCombustible(String tipoCombustible, int precioCombustible) {
-        Log.i("DB", "Combustible: " + tipoCombustible + " - " + precioCombustible);
+        Log.i(TAG, "Combustible: " + tipoCombustible + " - " + precioCombustible);
 
         ContentValues cv = new ContentValues();
         cv.put("tipo", tipoCombustible);
@@ -136,14 +135,14 @@ public class DBAdapter {
         Cursor queryDatabase = db.query("combustible", columna, "codigo = " + codigoCombustible, null, null, null, null);
         if (queryDatabase != null && queryDatabase.moveToFirst()) {
             precioRecuperado = Integer.parseInt(queryDatabase.getString(0));
-            Log.i("PRECIO", "recupero: " + precioRecuperado);
+            Log.i(TAG, "recupero: " + precioRecuperado);
         }
         queryDatabase.close();
         return precioRecuperado;
     }
 
     public void altaRecarga (String fecha, int odometro, int monto, double litros, int codigoCombustible, int codigoVehiculo) {
-        if (esPrimeraCarga(codigoVehiculo, codigoCombustible) > 0) {
+        if (retornaCantidadFilas(codigoVehiculo, codigoCombustible) > 0) {
             actualizaCargaAnterior(codigoVehiculo, codigoCombustible, odometro, fecha, litros);
         }
         ContentValues cv = new ContentValues();
@@ -229,7 +228,7 @@ public class DBAdapter {
     }
 
     public ArrayList<Cargas> recuperaCargas(int codigoVehiculo) {
-        Log.i("DB", "codigo vehiculo: " + codigoVehiculo);
+        Log.i(TAG, "codigo vehiculo: " + codigoVehiculo);
         ArrayList<Cargas> todosCombustibles = new ArrayList<Cargas>();
         Cursor cursor = db.query("cargas", null, null, null, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -259,20 +258,20 @@ public class DBAdapter {
         Cursor queryDatabase = db.query("vehiculo", columna, "id = " + codigoVehiculo, null, null, null, null);
         if (queryDatabase != null && queryDatabase.moveToFirst()) {
             odometroRecuperado = Integer.parseInt(queryDatabase.getString(0));
-            Log.i("PRECIO", "recupero: " + odometroRecuperado);
+            Log.i(TAG, "recupero: " + odometroRecuperado);
         }
         queryDatabase.close();
         return odometroRecuperado;
     }
 
-    public int esPrimeraCarga (int codigoVehiculo, int codigoCombustible) {
+    public int retornaCantidadFilas(int codigoVehiculo, int codigoCombustible) {
         int cantidadFilas = 0;
         String[] columna = {"count(0)"};
         String where = "codigo_vehiculo = " + codigoVehiculo + " AND codigo_combustible = " + codigoCombustible;
         Cursor queryDatabase = db.query("cargas", columna, where, null, null, null, null);
         if (queryDatabase != null && queryDatabase.moveToFirst()) {
             cantidadFilas = Integer.parseInt(queryDatabase.getString(0));
-            Log.i("PRECIO", "recupero cantidad de filas: " + cantidadFilas);
+            Log.i(TAG, "recupero cantidad de filas: " + cantidadFilas);
         }
         queryDatabase.close();
         return cantidadFilas;
@@ -281,6 +280,41 @@ public class DBAdapter {
     public void closeDataBaseConnection() {
         Log.i(TAG, "DB close");
         dBHelper.getWritableDatabase().close();
+    }
+
+    public double retornaConsumoPromedio (int codigoVehiculo, int codigoCombustible) {
+        double consumoPromedio = 0;
+        double litrosPorKm = retornaPromedioLitroPorKilometro(codigoVehiculo, codigoCombustible);
+        consumoPromedio = 100 / litrosPorKm;
+        return consumoPromedio;
+    }
+
+    public double retornaPromedioLitroPorKilometro (int codigoVehiculo, int codigoCombustible) {
+        double contadorLitrosXKm = 0;
+        String where = "codigo_vehiculo = " + codigoVehiculo + " AND codigo_combustible = " + codigoCombustible;
+        Cursor cur = db.rawQuery("SELECT SUM(kilometros_litro) FROM cargas WHERE " + where, null);
+        if(cur.moveToFirst())
+        {
+            contadorLitrosXKm = cur.getDouble(0);
+            Log.i(TAG, "Sumatoria de litros: " + contadorLitrosXKm);
+        }
+        cur.close();
+        double litrosPorKmPromedio = contadorLitrosXKm / retornaRecargasCompletadas(codigoVehiculo, codigoCombustible);
+        return litrosPorKmPromedio;
+    }
+
+    public int retornaRecargasCompletadas(int codigoVehiculo, int codigoCombustible) {
+        int cantidadFilas = 0;
+        String[] columna = {"count(0)"};
+        String where = "codigo_vehiculo = " + codigoVehiculo + " AND codigo_combustible = " + codigoCombustible
+                + " AND kilometros_litro <> 0";
+        Cursor queryDatabase = db.query("cargas", columna, where, null, null, null, null);
+        if (queryDatabase != null && queryDatabase.moveToFirst()) {
+            cantidadFilas = Integer.parseInt(queryDatabase.getString(0));
+            Log.i(TAG, "recupero cantidad de recargas completadas: " + cantidadFilas);
+        }
+        queryDatabase.close();
+        return cantidadFilas;
     }
 
 }

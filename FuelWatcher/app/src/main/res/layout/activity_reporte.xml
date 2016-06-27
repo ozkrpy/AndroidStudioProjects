@@ -17,6 +17,13 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_between"
         android:text="@string/titulo_reporte" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/texto_promedioConsumo"
+        android:textColor="#f44336"
+        android:gravity="center_horizontal"/>
+
 
     <Spinner
         android:id="@+id/Spinner_vehiculos"
@@ -35,10 +42,10 @@
             <TableLayout
                 android:id="@+id/tabla"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
             </TableLayout>
+
         </HorizontalScrollView>
     </ScrollView>
 </LinearLayout>

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class ReporteActivity extends AppCompatActivity {
 
     private Spinner spinnerVehiculos;
+    private TextView promedio;
     private TableLayout tabla;
 
     private DBAdapter dbAdapter;
@@ -44,11 +45,18 @@ public class ReporteActivity extends AppCompatActivity {
         spinnerVehiculos = (Spinner) findViewById(R.id.Spinner_vehiculos);
         tabla = (TableLayout) findViewById(R.id.tabla);
         inicializarTabla();
+        promedio = (TextView) findViewById(R.id.texto_promedioConsumo);
 
         dbAdapter = new DBAdapter(this);
         dbAdapter.openDataBaseConnection();
         cargarListados();
 
+    }
+
+    private void calcularConsumoPromedio() {
+        double litrosPor100 = dbAdapter.retornaConsumoPromedio(codigoVehiculo, 1);
+        String cadenaPromedio = String.valueOf(String.format("%.2f", litrosPor100));
+        promedio.setText("Promedio consumo: " + cadenaPromedio);
     }
 
     private void cargarListados() {
@@ -78,11 +86,12 @@ public class ReporteActivity extends AppCompatActivity {
         listaCargas = dbAdapter.recuperaCargas(codigoVehiculo);
         for(int i=0; i < listaCargas.size(); i++) {
             Cargas individual = listaCargas.get(i);
-            Log.i(TAG,"ANTES valor del indice de tabla: " + tabla.getChildCount());
             agregarNuevaFila(individual);
+        }
+        if (tabla.getChildCount()>1) {
+            calcularConsumoPromedio();
             Log.i(TAG,"DESPUES valor del indice de tabla: " + tabla.getChildCount());
         }
-        ArrayAdapter<Cargas> adapter = new ArrayAdapter<Cargas>(ReporteActivity.this, android.R.layout.simple_list_item_1, listaCargas);
     }
 
     //Initiates the table
@@ -141,16 +150,10 @@ public class ReporteActivity extends AppCompatActivity {
 
     public void agregarNuevaFila (Cargas carga) {
 
-        Log.i (TAG, "OBJETO - " + carga.toString());
-        Log.i(TAG, "Fecha: " + carga.getFecha());
-        Log.i(TAG, "Odometro: " + carga.getOdometro());
-        Log.i(TAG, "Monto: " + carga.getMonto());
-        Log.i(TAG, "litros: " + carga.getLitros());
-        Log.i(TAG, "rangoDias: " + carga.getRangoDias());
-        Log.i(TAG, "kilometrosRecorrido: " + carga.getKmRecorridos());
-        Log.i(TAG, "kilometrosPorLitro: " + carga.getKmLitro());
-        Log.i(TAG, "Combustible: " + carga.getCodigoCombustible());
-
+        Log.i(TAG, "Fecha: " + carga.getFecha() + " Odometro: " + carga.getOdometro() + " Monto: " + carga.getMonto()
+                + " litros: " + carga.getLitros() + " rangoDias: " + carga.getRangoDias()
+                + " kilometrosRecorrido: " + carga.getKmRecorridos() + " kilometrosPorLitro: " + carga.getKmLitro()
+                + " Combustible: " + carga.getCodigoCombustible());
 
         row = new TableRow(this);
         row.setLayoutParams(lp);
