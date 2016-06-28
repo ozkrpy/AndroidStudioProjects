@@ -12,6 +12,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ReporteActivity extends AppCompatActivity {
@@ -23,14 +24,14 @@ public class ReporteActivity extends AppCompatActivity {
     private DBAdapter dbAdapter;
     private int codigoVehiculo;
 
-    private TextView tvCombustible;
+    //private TextView tvCombustible;
     private TextView tvFecha;
-    private TextView tvOdometro;
+    //private TextView tvOdometro;
     private TextView tvMonto;
     private TextView tvLitros;
     private TextView tvRangoDias;
     private TextView tvKmRecorridos;
-    private TextView tvKmPorLitro;
+    //private TextView tvKmPorLitro;
     private TableRow row;
     private TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);;
 
@@ -101,48 +102,56 @@ public class ReporteActivity extends AppCompatActivity {
         row.setLayoutParams(lp);
 
         //This part defines the layout to be used for creating new rows
-        tvCombustible = new TextView(this);
+        //tvCombustible = new TextView(this);
         tvFecha = new TextView(this);
-        tvOdometro = new TextView(this);
+        //tvOdometro = new TextView(this);
         tvMonto = new TextView(this);
         tvLitros = new TextView(this);
         tvRangoDias = new TextView(this);
         tvKmRecorridos = new TextView(this);
-        tvKmPorLitro = new TextView(this);
+        //tvKmPorLitro = new TextView(this);
 
         //This generates the caption row
-        tvCombustible.setText("Fuel");
-        tvCombustible.setPadding(3, 3, 3, 3);
+        //tvCombustible.setText(" " + "Fuel" + " ");
+        //tvCombustible.setPadding(3, 3, 3, 3);
+        //tvCombustible.setBackgroundResource(R.drawable.cell_shape);
 
-        tvFecha.setText("Date");
+        tvFecha.setText(" " + "Date" + " ");
         tvFecha.setPadding(3, 3, 3, 3);
+        tvFecha.setBackgroundResource(R.drawable.cell_shape);
 
-        tvOdometro.setText("Odometro");
-        tvOdometro.setPadding(3, 3, 3, 3);
+        //tvOdometro.setText(" " + "Odometro" + " ");
+        //tvOdometro.setPadding(3, 3, 3, 3);
+        //tvOdometro.setBackgroundResource(R.drawable.cell_shape);
 
-        tvMonto.setText("Monto");
+        tvMonto.setText(" " + "Monto" + " ");
         tvMonto.setPadding(3, 3, 3, 3);
+        tvMonto.setBackgroundResource(R.drawable.cell_shape);
 
-        tvLitros.setText("Litros");
+        tvLitros.setText(" " + "Litros" + " ");
         tvLitros.setPadding(3, 3, 3, 3);
+        tvLitros.setBackgroundResource(R.drawable.cell_shape);
 
-        tvRangoDias.setText("Dias");
+        tvRangoDias.setText(" " + "Dias" + " ");
         tvRangoDias.setPadding(3, 3, 3, 3);
+        tvRangoDias.setBackgroundResource(R.drawable.cell_shape);
 
-        tvKmRecorridos.setText("Kms.");
+        tvKmRecorridos.setText(" " + "Kms." + " ");
         tvKmRecorridos.setPadding(3, 3, 3, 3);
+        tvKmRecorridos.setBackgroundResource(R.drawable.cell_shape);
 
-        tvKmPorLitro.setText("Km/L");
-        tvKmPorLitro.setPadding(3, 3, 3, 3);
+        //tvKmPorLitro.setText(" " + "Km/L" + " ");
+        //tvKmPorLitro.setPadding(3, 3, 3, 3);
+        //tvKmPorLitro.setBackgroundResource(R.drawable.cell_shape);
 
-        row.addView(tvCombustible);
+        //row.addView(tvCombustible);
         row.addView(tvFecha);
-        row.addView(tvOdometro);
+        //row.addView(tvOdometro);
         row.addView(tvMonto);
         row.addView(tvLitros);
         row.addView(tvRangoDias);
         row.addView(tvKmRecorridos);
-        row.addView(tvKmPorLitro);
+        //row.addView(tvKmPorLitro);
 
         tabla.addView(row,0);
 
@@ -156,49 +165,62 @@ public class ReporteActivity extends AppCompatActivity {
                 + " Combustible: " + carga.getCodigoCombustible());
 
         row = new TableRow(this);
+
         row.setLayoutParams(lp);
 
-        tvCombustible = new TextView(this);
+        //tvCombustible = new TextView(this);
         tvFecha = new TextView(this);
-        tvOdometro = new TextView(this);
+        //tvOdometro = new TextView(this);
         tvMonto = new TextView(this);
         tvLitros = new TextView(this);
         tvRangoDias = new TextView(this);
         tvKmRecorridos = new TextView(this);
-        tvKmPorLitro = new TextView(this);
+        //tvKmPorLitro = new TextView(this);
 
-        tvCombustible.setText(String.valueOf(carga.getCodigoCombustible()));
-        tvCombustible.setPadding(3, 3, 3, 3);
+        //tvCombustible.setText(" " + String.valueOf(carga.getCodigoCombustible()) + " ");
+        //tvCombustible.setPadding(3, 3, 3, 3);
+        //tvCombustible.setBackgroundResource(R.drawable.cell_shape);
 
-        tvFecha.setText(String.valueOf(carga.getFecha()));
+        tvFecha.setText(" " + String.valueOf(carga.getFecha()) + " ");
         tvFecha.setPadding(3, 3, 3, 3);
+        tvFecha.setBackgroundResource(R.drawable.cell_shape);
 
-        tvOdometro.setText(String.valueOf(carga.getOdometro()));
-        tvOdometro.setPadding(3, 3, 3, 3);
+        //tvOdometro.setText(" " + String.valueOf(carga.getOdometro()) + " ");
+        //tvOdometro.setPadding(3, 3, 3, 3);
+        //tvOdometro.setBackgroundResource(R.drawable.cell_shape);
 
-        tvMonto.setText(String.valueOf(carga.getMonto()));
+        int amount = carga.getMonto();
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        tvMonto.setText(" " + String.valueOf(formatter.format(amount)) + " ");
         tvMonto.setPadding(3, 3, 3, 3);
+        tvMonto.setBackgroundResource(R.drawable.cell_shape);
 
-        tvLitros.setText(String.valueOf(carga.getLitros()));
+        tvLitros.setText(" " + String.valueOf(carga.getLitros()) + " ");
         tvLitros.setPadding(3, 3, 3, 3);
+        tvLitros.setBackgroundResource(R.drawable.cell_shape);
 
-        tvRangoDias.setText(String.valueOf(carga.getRangoDias()));
+        tvRangoDias.setText(" " + String.valueOf(carga.getRangoDias()) + " ");
         tvRangoDias.setPadding(3, 3, 3, 3);
+        tvRangoDias.setBackgroundResource(R.drawable.cell_shape);
 
-        tvKmRecorridos.setText(String.valueOf(carga.getKmRecorridos()));
+        tvKmRecorridos.setText(" " + String.valueOf(carga.getKmRecorridos()) + " ");
         tvKmRecorridos.setPadding(3, 3, 3, 3);
+        tvKmRecorridos.setBackgroundResource(R.drawable.cell_shape);
 
-        tvKmPorLitro.setText(String.valueOf(String.format("%.2f", carga.getKmLitro())));
-        tvKmPorLitro.setPadding(3, 3, 3, 3);
+        //tvKmPorLitro.setText(" " + String.valueOf(String.format("%.2f", carga.getKmLitro())) + " ");
+        //tvKmPorLitro.setPadding(3, 3, 3, 3);
+        //tvKmPorLitro.setBackgroundResource(R.drawable.cell_shape);
 
-        row.addView(tvCombustible);
+        //row.addView(tvCombustible);
         row.addView(tvFecha);
-        row.addView(tvOdometro);
+        //row.addView(tvOdometro);
         row.addView(tvMonto);
         row.addView(tvLitros);
         row.addView(tvRangoDias);
         row.addView(tvKmRecorridos);
-        row.addView(tvKmPorLitro);
+        //row.addView(tvKmPorLitro);
+
+        row.setBackgroundColor(getResources().getColor(R.color.blanco));
 
         tabla.addView(row,tabla.getChildCount());
     }

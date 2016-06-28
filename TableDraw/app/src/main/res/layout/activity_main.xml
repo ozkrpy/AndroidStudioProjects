@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableRow
+        android:id="@+id/tabla_cabecera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></TableRow>
+
+    <TableLayout
+        android:id="@+id/tabla_cuerpo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:id="@+id/filasCabecera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvFuelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text="Fuel"
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvDateTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text="Date"
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvOdometerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text="Odometro"
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvAmmountTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text="Monto"
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvLitersTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text="Litros"
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvDaysTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text="Dias"
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvKmRunnedTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text="Kms."
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvKmPerLiterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text="Km/L"
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+        </TableRow>
+
+        <!--
+        <TableRow
+            android:id="@+id/filas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvFuel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvOdometer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvAmmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvLiters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvDays"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvKmRunned"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+            <TextView
+                android:id="@+id/tvKmPerLiter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cell_shape"
+                android:padding="5dp"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceMedium"></TextView>
+
+        </TableRow>
+        -->
+
+
+    </TableLayout>
+
+
+</LinearLayout>

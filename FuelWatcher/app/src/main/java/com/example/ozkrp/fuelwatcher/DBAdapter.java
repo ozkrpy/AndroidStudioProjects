@@ -306,7 +306,8 @@ public class DBAdapter {
     public int retornaRecargasCompletadas(int codigoVehiculo, int codigoCombustible) {
         int cantidadFilas = 0;
         String[] columna = {"count(0)"};
-        String where = "codigo_vehiculo = " + codigoVehiculo + " AND codigo_combustible = " + codigoCombustible
+        String where = "codigo_vehiculo = " + codigoVehiculo
+                + " AND codigo_combustible = " + codigoCombustible
                 + " AND kilometros_litro <> 0";
         Cursor queryDatabase = db.query("cargas", columna, where, null, null, null, null);
         if (queryDatabase != null && queryDatabase.moveToFirst()) {
