@@ -1,5 +1,7 @@
 package com.example.ozkrp.fuelwatcher;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ public class ReporteActivity extends AppCompatActivity {
     private DBAdapter dbAdapter;
     private int codigoVehiculo;
 
-    //private TextView tvCombustible;
+    private TextView tvCombustible;
     private TextView tvFecha;
     //private TextView tvOdometro;
     private TextView tvMonto;
@@ -45,7 +48,7 @@ public class ReporteActivity extends AppCompatActivity {
 
         spinnerVehiculos = (Spinner) findViewById(R.id.Spinner_vehiculos);
         tabla = (TableLayout) findViewById(R.id.tabla);
-        inicializarTabla();
+
         promedio = (TextView) findViewById(R.id.texto_promedioConsumo);
 
         dbAdapter = new DBAdapter(this);
@@ -71,17 +74,29 @@ public class ReporteActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     ItemSpinner itemSeleccionado = (ItemSpinner) parent.getSelectedItem();
                     codigoVehiculo = itemSeleccionado.getCodigo();
-                    recuperarRecargas();
+                    poblarTabla();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
+
             });
 
         }
 
     }
+
+    private void poblarTabla() {
+        vaciaTabla();
+        inicializarTabla();
+        recuperarRecargas();
+    }
+
+    private void vaciaTabla() {
+        tabla.removeAllViews();
+    }
+
     private void recuperarRecargas() {
         ArrayList<Cargas> listaCargas = new ArrayList<Cargas>();
         listaCargas = dbAdapter.recuperaCargas(codigoVehiculo);
@@ -102,7 +117,7 @@ public class ReporteActivity extends AppCompatActivity {
         row.setLayoutParams(lp);
 
         //This part defines the layout to be used for creating new rows
-        //tvCombustible = new TextView(this);
+        tvCombustible = new TextView(this);
         tvFecha = new TextView(this);
         //tvOdometro = new TextView(this);
         tvMonto = new TextView(this);
@@ -112,9 +127,9 @@ public class ReporteActivity extends AppCompatActivity {
         //tvKmPorLitro = new TextView(this);
 
         //This generates the caption row
-        //tvCombustible.setText(" " + "Fuel" + " ");
-        //tvCombustible.setPadding(3, 3, 3, 3);
-        //tvCombustible.setBackgroundResource(R.drawable.cell_shape);
+        tvCombustible.setText(" " + "Fuel" + " ");
+        tvCombustible.setPadding(3, 3, 3, 3);
+        tvCombustible.setBackgroundResource(R.drawable.cell_shape);
 
         tvFecha.setText(" " + "Date" + " ");
         tvFecha.setPadding(3, 3, 3, 3);
@@ -144,7 +159,7 @@ public class ReporteActivity extends AppCompatActivity {
         //tvKmPorLitro.setPadding(3, 3, 3, 3);
         //tvKmPorLitro.setBackgroundResource(R.drawable.cell_shape);
 
-        //row.addView(tvCombustible);
+        row.addView(tvCombustible);
         row.addView(tvFecha);
         //row.addView(tvOdometro);
         row.addView(tvMonto);
@@ -165,10 +180,10 @@ public class ReporteActivity extends AppCompatActivity {
                 + " Combustible: " + carga.getCodigoCombustible());
 
         row = new TableRow(this);
-
         row.setLayoutParams(lp);
+        row.setId(tabla.getChildCount());
 
-        //tvCombustible = new TextView(this);
+        tvCombustible = new TextView(this);
         tvFecha = new TextView(this);
         //tvOdometro = new TextView(this);
         tvMonto = new TextView(this);
@@ -177,11 +192,11 @@ public class ReporteActivity extends AppCompatActivity {
         tvKmRecorridos = new TextView(this);
         //tvKmPorLitro = new TextView(this);
 
-        //tvCombustible.setText(" " + String.valueOf(carga.getCodigoCombustible()) + " ");
-        //tvCombustible.setPadding(3, 3, 3, 3);
-        //tvCombustible.setBackgroundResource(R.drawable.cell_shape);
+        tvCombustible.setText(String.valueOf(carga.getCodigoCombustible()) + " ");
+        tvCombustible.setPadding(3, 3, 3, 3);
+        tvCombustible.setBackgroundResource(R.drawable.cell_shape);
 
-        tvFecha.setText(" " + String.valueOf(carga.getFecha()) + " ");
+        tvFecha.setText(String.valueOf(carga.getFecha()) + " ");
         tvFecha.setPadding(3, 3, 3, 3);
         tvFecha.setBackgroundResource(R.drawable.cell_shape);
 
@@ -211,7 +226,7 @@ public class ReporteActivity extends AppCompatActivity {
         //tvKmPorLitro.setPadding(3, 3, 3, 3);
         //tvKmPorLitro.setBackgroundResource(R.drawable.cell_shape);
 
-        //row.addView(tvCombustible);
+        row.addView(tvCombustible);
         row.addView(tvFecha);
         //row.addView(tvOdometro);
         row.addView(tvMonto);
@@ -223,6 +238,56 @@ public class ReporteActivity extends AppCompatActivity {
         row.setBackgroundColor(getResources().getColor(R.color.blanco));
 
         tabla.addView(row,tabla.getChildCount());
+
+        Log.i(TAG, "Id de la fila " + row.getId());
+        row.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.i(TAG, "Fila: " + v.getId());
+                dialogoBorradoFila(v);
+                return false;
+            }
+        });
+    }
+
+    private void dialogoBorradoFila(final View numeroFila) {
+            AlertDialog confirma = new AlertDialog.Builder(this).create();
+            confirma.setTitle("Confirmar");
+            confirma.setMessage("Desea borrar la carga?");
+            confirma.setButton(AlertDialog.BUTTON_NEGATIVE, "Atras", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            confirma.setButton(AlertDialog.BUTTON_POSITIVE, "Confirma", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //tabla.removeViewAt(numeroFila);
+                    Log.i(TAG, "Borrar fila: " + numeroFila);
+                    borrarFila(numeroFila);
+                }
+            });
+            confirma.show();
+    }
+
+    private void borrarFila(View numeroFila) {
+        TableRow vista = (TableRow) tabla.getChildAt(numeroFila.getId());
+        TextView textViewCombus = (TextView) vista.getChildAt(0);
+        String combustible = textViewCombus.getText().toString().trim();
+        int combustibleCodigo = Integer.parseInt(combustible);
+        TextView textViewFecha = (TextView) vista.getChildAt(1);
+        String fechaCargaBorrar = textViewFecha.getText().toString().trim();
+        Log.i(TAG, "BORRAR Vehiculo: " + codigoVehiculo +
+                " Combustible String: " + combustible +
+                " Combustible Int: " + combustibleCodigo +
+                " Fecha: " + fechaCargaBorrar);
+        if (dbAdapter.borrarRegistro(codigoVehiculo, combustibleCodigo, fechaCargaBorrar)) {
+            tabla.removeViewInLayout(numeroFila);
+            poblarTabla();
+        } else {
+            Toast.makeText(ReporteActivity.this, "No se pudo borrar el registro.-", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

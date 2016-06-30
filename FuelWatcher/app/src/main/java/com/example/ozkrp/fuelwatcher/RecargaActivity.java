@@ -91,12 +91,25 @@ public class RecargaActivity extends AppCompatActivity implements
         botonConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                confirmarOperacion();
+                if (validarCampos()) {
+                    confirmarOperacion();
+                } else {
+                    Toast.makeText(RecargaActivity.this, "Campos vacios al intentar guardar.", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
         dbAdapter = new DBAdapter(this);
         dbAdapter.openDataBaseConnection();
         cargarListados();
+    }
+
+    private boolean validarCampos() {
+        if ((fechaRecarga.getText().toString()!=null || odometro.getText().toString()!=null || montoRecarga.getText().toString()!=null)
+                && (fechaRecarga.getText().toString().length()>0 || odometro.getText().toString().length()>0 || montoRecarga.getText().toString().length()>0)
+           )
+            return true;
+        return false;
     }
 
     private void cambiaLitros() {

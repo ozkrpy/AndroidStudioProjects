@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -61,18 +62,42 @@ public class ParametrosActivity extends AppCompatActivity implements View.OnClic
         dbAdapter.altaCombustible(tipo, precio);
     }
 
+    private boolean validarCamposVehiculo() {
+        if ((marca.getText().toString()!=null || modelo.getText().toString()!=null || anno.getText().toString()!=null || odometro.getText().toString()!=null)
+             && (marca.getText().toString().length()>0 || modelo.getText().toString().length()>0  || anno.getText().toString().length()>0  || odometro.getText().toString().length()>0))
+            return true;
+        return false;
+    }
+
+    private boolean validarCamposCombustible() {
+        if ((tipoCombustible.getText().toString()!=null || precioCombustible.getText().toString()!=null)
+             && (tipoCombustible.getText().toString().length()>0 || precioCombustible.getText().toString().length()>0))
+            return true;
+        return false;
+    }
+
+
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.botonAltaVehiculo:
-                altaVehiculo();
-                vaciarVistasVehiculo();
-                break;
-            case R.id.botonAltaCombustible:
-                altaCombustible();
-                vaciarVistasCombustible();
-                break;
-        }
+            switch (v.getId()) {
+                case R.id.botonAltaVehiculo:
+                    if (validarCamposVehiculo()) {
+                        altaVehiculo();
+                        vaciarVistasVehiculo();
+                    } else {
+                        Toast.makeText(ParametrosActivity.this, "Campos vacios al intentar guardar Vehiculo.", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case R.id.botonAltaCombustible:
+                    if (validarCamposCombustible()) {
+                        altaCombustible();
+                        vaciarVistasCombustible();
+                    } else {
+                        Toast.makeText(ParametrosActivity.this, "Campos vacios al intentar guardar Combustible.", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+            }
+
     }
 
     private void vaciarVistasCombustible() {

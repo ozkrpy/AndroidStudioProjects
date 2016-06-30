@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -161,17 +162,26 @@ public class DBAdapter {
         }
     }
 
+
     private void actualizaCargaAnterior(int codigoVehiculo, int codigoCombustible, int odometroNuevo, String fecha, double litros) {
-        int odometroAntes = recuperaOdometroViejo(codigoVehiculo);
-        int kilometrosRecorridos = odometroNuevo - odometroAntes;
-
         String ultimaFecha = recuperaUltimaFecha(codigoCombustible, codigoVehiculo);
-        long dias = calculaRangoDias(fecha, ultimaFecha);
+        long dias;
+        int kilometrosRecorridos;
+        double kilometrosLitro;
 
-        double kilometrosLitro = kilometrosRecorridos / litros;
+        if (odometroNuevo != 0) {
+            dias = calculaRangoDias(fecha, ultimaFecha);
+            int odometroAntes = recuperaOdometroViejo(codigoVehiculo);
+            kilometrosRecorridos = odometroNuevo - odometroAntes;
+            kilometrosLitro = kilometrosRecorridos / litros;
+        } else {
+            dias = 0;
+            kilometrosRecorridos = 0;
+            kilometrosLitro = 0;
+        }
+
         Log.i(TAG, "Km Recorridos: " + kilometrosRecorridos + " rango dias: " + dias + " Kilometros x Litro: " + kilometrosLitro);
 
-        //db.update(tabla, contentValues, where, whereArguments);
         ContentValues cv = new ContentValues();
         cv.put("rango_dias", dias);
         cv.put("kilometros_recorridos", kilometrosRecorridos);
@@ -230,7 +240,8 @@ public class DBAdapter {
     public ArrayList<Cargas> recuperaCargas(int codigoVehiculo) {
         Log.i(TAG, "codigo vehiculo: " + codigoVehiculo);
         ArrayList<Cargas> todosCombustibles = new ArrayList<Cargas>();
-        Cursor cursor = db.query("cargas", null, null, null, null, null, null);
+        String where = "codigo_vehiculo = " + codigoVehiculo;
+        Cursor cursor = db.query("cargas", null, where, null, null, null, "fecha ASC");
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 Cargas carga = new Cargas();
@@ -317,5 +328,29 @@ public class DBAdapter {
         queryDatabase.close();
         return cantidadFilas;
     }
+
+    public boolean borrarRegistro(int codigoVehiculo, int codigoCombustible, String fecha) {
+        Log.i(TAG, "Entro a la BD para borrar");
+        String where = "codigo_vehiculo = " + codigoVehiculo
+                + " AND codigo_combustible = " + codigoCombustible
+                + " AND fecha = '" + fecha + "'";
+        try {
+            int cantidad = db.delete("cargas", where, null);
+            if (cantidad > 0) {
+                Log.i(TAG, "Se borraron " + cantidad + " filas");
+                if (retornaCantidadFilas(codigoVehiculo, codigoCombustible) > 0) {
+                    actualizaCargaAnterior(codigoVehiculo, codigoCombustible, 0, null, 0);
+                }
+                return true;
+            } else {
+                Log.i(TAG, "No se borraron filas");
+            }
+        } catch (Exception e) {
+            Log.i(TAG, "ERROR: " + e.getMessage());
+            return false;
+        }
+        return false;
+    }
+
 
 }
