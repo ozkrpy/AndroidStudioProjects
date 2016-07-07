@@ -19,7 +19,7 @@ public class WebService {
     private static final String TAG = "WEBSERVICE_LOG";
     private static final String NAMESPACE = "http://operations.ws/";
     //private static String IP = "190.52.175.153";//cuando se use desde una locacion externa
-    private static String IP = "192.168.43.215";//cuando se use desde una locacion externa
+    private static String IP = "10.133.23.1";//cuando se use desde una locacion externa
     private static final String URL = "http://" + IP + ":9999/Mobile/Services?WSDL";
 
     public Respuesta consultaUsuario(String user, String pass, String method) {
