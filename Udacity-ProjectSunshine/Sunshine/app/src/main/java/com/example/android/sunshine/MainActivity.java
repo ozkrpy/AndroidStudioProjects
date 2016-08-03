@@ -1,30 +1,44 @@
 package com.example.android.sunshine;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-    public static class PlaceholderFragment extends Fragment {
-        public PlaceholderFragment() {
+        Log.i(LOG_TAG, "inicializa la vista");
+        if (savedInstanceState == null ) {
+            Log.i(LOG_TAG, "saved instance es null");
+            getSupportFragmentManager().beginTransaction().add(R.id.container, new ForecastFragment()).commit();
+            Log.i(LOG_TAG, "fragment manager");
         }
 
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container);
-            return rootView;
+    }
+    /*
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                //newGame();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
+
+    */
 }
