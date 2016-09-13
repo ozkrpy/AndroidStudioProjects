@@ -1,11 +1,10 @@
 package com.example.ozkrp.fuelwatcher;
 
-import android.content.ClipData;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -142,12 +141,9 @@ public class RecargaActivity extends AppCompatActivity implements
     private void procesarNuevaCarga() {
         int odometroAltaRecarga = Integer.parseInt(odometro.getText().toString().trim());
         int montoAltaRecarga = Integer.parseInt(montoRecarga.getText().toString());
-        double litrosAltaRecarga = Double.parseDouble(litrosCargados.getText().toString());
-
-        Log.i(TAG, "Fecha: " + cadenaFecha + " Odometro al momento de la carga: " + odometroAltaRecarga
-                + " Monto Gs.: " + montoAltaRecarga + " Litros cargados: " + litrosAltaRecarga
-                + " Combustible: " + codigoCombustible + " Vehiculo: " + codigoVehiculo);
-
+        String convierteLitros = litrosCargados.getText().toString();
+        convierteLitros = convierteLitros.replace(",",".");
+        double litrosAltaRecarga = Double.parseDouble(convierteLitros);
         dbAdapter.altaRecarga(cadenaFecha, odometroAltaRecarga, montoAltaRecarga, litrosAltaRecarga, codigoCombustible, codigoVehiculo);
         finish();
     }
@@ -216,7 +212,7 @@ public class RecargaActivity extends AppCompatActivity implements
             cadenaFecha = format1.format(date);
             fechaRecarga.setText(cadenaFecha);
         } catch (Exception e1) {
-            Log.i("ERROR", "Mensaje: " + e1.getMessage());
+            Log.e("ERROR", "Mensaje: " + e1.getMessage());
         }
     }
 
