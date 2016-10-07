@@ -1,14 +1,13 @@
 package com.example.ozkrp.fuelwatcher;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -29,7 +28,7 @@ public class ReporteActivity extends AppCompatActivity {
 
     private TextView tvCombustible;
     private TextView tvFecha;
-    //private TextView tvOdometro;
+    private TextView tvOdometro;
     private TextView tvMonto;
     private TextView tvLitros;
     private TextView tvRangoDias;
@@ -119,7 +118,7 @@ public class ReporteActivity extends AppCompatActivity {
         //This part defines the layout to be used for creating new rows
         tvCombustible = new TextView(this);
         tvFecha = new TextView(this);
-        //tvOdometro = new TextView(this);
+        tvOdometro = new TextView(this);
         tvMonto = new TextView(this);
         tvLitros = new TextView(this);
         tvRangoDias = new TextView(this);
@@ -135,9 +134,9 @@ public class ReporteActivity extends AppCompatActivity {
         tvFecha.setPadding(3, 3, 3, 3);
         tvFecha.setBackgroundResource(R.drawable.cell_shape);
 
-        //tvOdometro.setText(" " + "Odometro" + " ");
-        //tvOdometro.setPadding(3, 3, 3, 3);
-        //tvOdometro.setBackgroundResource(R.drawable.cell_shape);
+        tvOdometro.setText(" " + "Odometro" + " ");
+        tvOdometro.setPadding(3, 3, 3, 3);
+        tvOdometro.setBackgroundResource(R.drawable.cell_shape);
 
         tvMonto.setText(" " + "Monto" + " ");
         tvMonto.setPadding(3, 3, 3, 3);
@@ -161,7 +160,7 @@ public class ReporteActivity extends AppCompatActivity {
 
         row.addView(tvCombustible);
         row.addView(tvFecha);
-        //row.addView(tvOdometro);
+        row.addView(tvOdometro);
         row.addView(tvMonto);
         row.addView(tvLitros);
         row.addView(tvRangoDias);
@@ -185,7 +184,7 @@ public class ReporteActivity extends AppCompatActivity {
 
         tvCombustible = new TextView(this);
         tvFecha = new TextView(this);
-        //tvOdometro = new TextView(this);
+        tvOdometro = new TextView(this);
         tvMonto = new TextView(this);
         tvLitros = new TextView(this);
         tvRangoDias = new TextView(this);
@@ -200,9 +199,9 @@ public class ReporteActivity extends AppCompatActivity {
         tvFecha.setPadding(3, 3, 3, 3);
         tvFecha.setBackgroundResource(R.drawable.cell_shape);
 
-        //tvOdometro.setText(" " + String.valueOf(carga.getOdometro()) + " ");
-        //tvOdometro.setPadding(3, 3, 3, 3);
-        //tvOdometro.setBackgroundResource(R.drawable.cell_shape);
+        tvOdometro.setText(" " + String.valueOf(carga.getOdometro()) + " ");
+        tvOdometro.setPadding(3, 3, 3, 3);
+        tvOdometro.setBackgroundResource(R.drawable.cell_shape);
 
         int amount = carga.getMonto();
         DecimalFormat formatter = new DecimalFormat("#,###");
@@ -228,7 +227,7 @@ public class ReporteActivity extends AppCompatActivity {
 
         row.addView(tvCombustible);
         row.addView(tvFecha);
-        //row.addView(tvOdometro);
+        row.addView(tvOdometro);
         row.addView(tvMonto);
         row.addView(tvLitros);
         row.addView(tvRangoDias);
