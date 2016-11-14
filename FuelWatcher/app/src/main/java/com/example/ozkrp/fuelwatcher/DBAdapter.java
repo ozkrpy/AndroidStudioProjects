@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -224,7 +223,7 @@ public class DBAdapter {
     private String recuperaUltimaFecha(int codigoCombustible, int codigoVehiculo) {
         String fechaUltimaCarga = null;
         String[] columna = {"MAX(fecha)"};
-        String where = "codigo_vehiculo = " + codigoVehiculo + " AND codigo_combustible = " + codigoCombustible;
+        String where = "codigo_vehiculo = " + codigoVehiculo;
         long dias = 0;
         Cursor queryDatabase = db.query("cargas", columna, where, null, null, null, null);
         if (queryDatabase != null && queryDatabase.moveToFirst()) {
