@@ -1,5 +1,8 @@
 package org.ruffineo.workflowmanager;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
@@ -80,12 +83,16 @@ public class WebService {
         return respuesta;
     }
 
-    public ArrayList<Item> recuperaLista(String user, String pass, String method) {
+    public ArrayList<Item> recuperaLista(String user, String pass, String method, Context context) {
         escribeLog("entro al metodo recuperaLista");
         ArrayList<Item> returnlist = new ArrayList<Item>();
         datosUsuario = new DatosUsuario(user, pass, "20160404");//TODO sending a correct date
         SoapSerializationEnvelope envelope = crearSOAPenvelope(method, datosUsuario, null, null);
         escribeLog("recupero el envelope");
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        Boolean defineSumario = sharedPref.getBoolean("summaryPref", true);
+        escribeLog("SharedPreferences recupero, summaryPref: " + defineSumario);
+
         try {
             escribeLog("Class envelope: " + envelope.getClass().toString());
             if (envelope.getResponse() == null) {
@@ -98,12 +105,22 @@ public class WebService {
                         java.util.Vector<SoapObject> rs = (java.util.Vector<SoapObject>) envelope.getResponse();
                         if (rs != null) {
                             escribeLog("Vector retorno datos, envelope response: " + rs.toString());
-                            for (SoapObject cs : rs) {
-                                Item rp = new Item();
-                                rp.setDescription(cs.getProperty(0).toString());
-                                rp.setTitle(cs.getProperty(1).toString());
-                                escribeLog("Titulo = " + rp.getTitle() + " Descripcion = " + rp.getDescription());
-                                returnlist.add(rp);
+                            if (defineSumario) {
+                                for (SoapObject cs : rs) {
+                                    Item rp = new Item();
+                                    rp.setDescription(cs.getProperty(0).toString());
+                                    rp.setTitle(cs.getProperty(1).toString());
+                                    escribeLog("Titulo = " + rp.getTitle() + " Descripcion = " + rp.getDescription());
+                                    returnlist.add(rp);
+                                }
+                            } else {
+                                for (SoapObject cs : rs) {
+                                    Item rp = new Item();
+                                    rp.setDescription("");
+                                    rp.setTitle(cs.getProperty(1).toString());
+                                    escribeLog("Titulo = " + rp.getTitle() + " Descripcion = " + rp.getDescription());
+                                    returnlist.add(rp);
+                                }
                             }
                             escribeLog("Recupero: " + rs.toString());
                         } else {

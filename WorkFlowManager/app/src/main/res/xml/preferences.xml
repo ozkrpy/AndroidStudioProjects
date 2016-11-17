@@ -35,7 +35,7 @@
         android:summary="Establece el intervalo de tiempo para la verificacion de solicitudes pendientes."
         android:key="durationPref"
         android:dependency="notifPref"
-        android:defaultValue="Wi-Fi"
+        android:defaultValue="1 hs."
         android:entries="@array/durationArray"
         android:entryValues="@array/durationListValues"
         />
