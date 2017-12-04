@@ -23,14 +23,14 @@ public class WebService {
     private String tagParametroEstadoAprobacion = "estadoAprobacion";
     private static final String TAG = "WEBSERVICE_LOG";
     private static final String NAMESPACE = "http://operations.ws/";
-    private static String IP = "190.52.175.153";//cuando se use desde una locacion externa
-    //private static String IP = "10.133.23.1";//cuando se use desde una locacion interna
+    private static String IP = "186.2.196.162";//cuando se use desde una locacion externa
+//    private static String IP = "192.168.43.215";//cuando se use desde una locacion interna
     private static final String URL = "http://" + IP + ":9999/Mobile/Services?WSDL";
 
     public Respuesta consultaUsuario(String user, String pass, String method) {
         escribeLog("entro al metodo consultaUsuario");
         Respuesta respuesta = new Respuesta(0, "ER", "se inicializo correctamente en la APP");
-        datosUsuario = new DatosUsuario(user, pass, "20160404");//TODO sending a correct date
+        datosUsuario = new DatosUsuario(user, pass, "20171026");//TODO sending a correct date
         SoapSerializationEnvelope envelope = crearSOAPenvelope(method, datosUsuario, null, null);
         escribeLog("recupero el envelope");
         try {

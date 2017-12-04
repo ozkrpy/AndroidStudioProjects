@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -25,6 +26,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String pass;
     private String method;
     private String validado = "NO";
+
+    private TextView textViewErrorLogin;
+
     String mensaje;
 
 
@@ -43,6 +47,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressBarEjecucion = (ProgressBar) findViewById(R.id.progressBar_ejecucion);
 
+        textViewErrorLogin = (TextView) findViewById(R.id.textView_errorLogin);
+
     }
 
     @Override
@@ -60,6 +66,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 validarDatos.execute();
             } else {
                 notificaError("Debe Ingresar Usuario y Contraseña");
+                textViewErrorLogin.setVisibility(View.VISIBLE);
+                textViewErrorLogin.setText("Debe ingresar Usuario/Contraseña");
             }
         }
     }
@@ -97,6 +105,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             super.onPreExecute();
             escribeLog("entro al onPreExecute ValidarDatos");
             progressBarEjecucion.setVisibility(View.VISIBLE);
+            textViewErrorLogin.setVisibility(View.INVISIBLE);
+
 
         }
 
@@ -115,6 +125,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } else {
                 escribeLog("Usuario / contraseña no validos. Resultado: " + validado + " " + mensaje);
                 notificaError("Usuario/Contraseña no validados. " + mensaje);
+                textViewErrorLogin.setVisibility(View.VISIBLE);
+                textViewErrorLogin.setText("Favor reingrese los datos de acceso.");
             }
         }
     }

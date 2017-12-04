@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
@@ -27,30 +28,38 @@
             android:id="@+id/editText_user"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/user"
-            android:drawableTint="#FFF"
+            android:drawableStart="@mipmap/user"
             android:fontFamily="sans-serif"
             android:hint="@string/user_hint"
-            android:singleLine="true"
-            android:backgroundTint="#455A64"/>
+            android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!--<EditText-->
+            <!--android:id="@+id/editText_pass"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:drawableStart="@mipmap/lock"-->
+            <!--android:drawableTint="#FFF"-->
+            <!--android:fontFamily="sans-serif"-->
+            <!--android:hint="@string/pass_hint"-->
+            <!--android:inputType="textPassword"-->
+            <!--android:singleLine="true"-->
+            <!--android:backgroundTint="#455A64"/>-->
         <EditText
             android:id="@+id/editText_pass"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:drawableStart="@drawable/lock"
-            android:drawableTint="#FFF"
+            android:drawableStart="@mipmap/lock"
             android:fontFamily="sans-serif"
             android:hint="@string/pass_hint"
-            android:password="true"
-            android:singleLine="true"
-            android:backgroundTint="#455A64"/>
+            android:inputType="textPassword"
+            android:singleLine="true" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -64,11 +73,25 @@
         android:textColor="#fff"
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/textView_errorLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="22dp"
+        android:gravity="center_horizontal"
+        android:text="@string/ingreso"
+        android:textAppearance="@style/TextAppearance.Design.Error"
+        android:visibility="invisible" />
+
     <ProgressBar
         android:id="@+id/progressBar_ejecucion"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:visibility="invisible" />
+        android:visibility="invisible">
+    </ProgressBar>
 
 </LinearLayout>

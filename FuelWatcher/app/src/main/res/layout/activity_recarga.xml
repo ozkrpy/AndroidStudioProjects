@@ -5,7 +5,9 @@
     android:id="@+id/recargas_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ozkrp.fuelwatcher.RecargaActivity">
+    tools:context="com.example.ozkrp.fuelwatcher.RecargaActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
 
     <TextView
         android:id="@+id/textoTitulo"
@@ -14,12 +16,13 @@
         android:layout_height="wrap_content"
         android:text="@string/titulo_recargas"
         android:gravity="center_vertical|center_horizontal"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="16dp"
+        tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_fecha_recarga"
@@ -28,8 +31,12 @@
         android:hint="@string/hint_fecha"
         android:inputType="date"
         android:layout_marginStart="16dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_odometro"
+        tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText_odometro" />
+        app:layout_constraintTop_toTopOf="@+id/editText_odometro" />
 
     <EditText
         android:id="@+id/editText_odometro"
@@ -37,11 +44,12 @@
         android:layout_height="wrap_content"
         android:hint="@string/hint_odometro"
         android:inputType="number"
-        tools:layout_editor_absoluteY="186dp"
-        android:layout_marginStart="24dp"
-        app:layout_constraintLeft_toRightOf="@+id/editText_fecha_recarga"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginStart="16dp"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="186dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/textoLitros"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editText_monto_recarga"
@@ -50,8 +58,11 @@
         android:hint="@string/hint_monto"
         android:inputType="number"
         android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textoLitros" />
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/editText_fecha_recarga"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:id="@+id/textoLitros"
@@ -61,11 +72,15 @@
         android:text="@string/litros"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
-        android:layout_marginStart="24dp"
-        app:layout_constraintLeft_toRightOf="@+id/editText_monto_recarga"
-        app:layout_constraintRight_toLeftOf="@+id/textoLitrosNumero"
-        app:layout_constraintHorizontal_bias="0.66"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textoLitrosNumero" />
+        android:layout_marginStart="53dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginEnd="52dp"
+        app:layout_constraintRight_toRightOf="@+id/textoTitulo"
+        android:layout_marginTop="26dp"
+        app:layout_constraintTop_toBottomOf="@+id/editText_odometro"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toRightOf="@+id/editText_fecha_recarga" />
 
     <TextView
         android:id="@+id/textoLitrosNumero"
@@ -74,57 +89,84 @@
         android:gravity="center_vertical"
         android:text="0"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        tools:layout_editor_absoluteY="255dp"
-        tools:layout_editor_absoluteX="284dp" />
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="21dp"
+        app:layout_constraintRight_toRightOf="@+id/editText_odometro"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textoLitros"
+        tools:layout_constraintBaseline_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toRightOf="@+id/textoLitros" />
 
     <Spinner
         android:id="@+id/Spinner_vehiculos"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        tools:layout_editor_absoluteY="69dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toRightOf="@+id/textView"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_marginEnd="1dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/editText_odometro"
+        app:layout_constraintRight_toRightOf="@+id/Spinner_combustibles"
+        android:layout_marginTop="69dp"
+        android:layout_marginBottom="69dp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/Spinner_combustibles"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        tools:layout_editor_absoluteY="117dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/textView2"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toLeftOf="@+id/editText_odometro"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/editText_odometro"
+        android:layout_marginTop="48dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintLeft_toLeftOf="@+id/editText_odometro"
+        app:layout_constraintTop_toTopOf="@+id/Spinner_vehiculos" />
 
     <Button
         android:id="@+id/botonConfirmarCarga"
-        android:layout_width="344dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/boton_confirmar"
-        android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
         android:text="Vehiculo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        tools:layout_editor_absoluteY="81dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/Spinner_combustibles"
+        android:layout_marginTop="65dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="67dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textoTitulo" />
 
     <TextView
         android:text="Combustible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
-        tools:layout_editor_absoluteY="130dp"
         android:layout_marginStart="16dp"
+        tools:layout_constraintTop_creator="1"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
