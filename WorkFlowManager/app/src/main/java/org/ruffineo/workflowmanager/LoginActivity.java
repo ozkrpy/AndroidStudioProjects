@@ -106,8 +106,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             escribeLog("entro al onPreExecute ValidarDatos");
             progressBarEjecucion.setVisibility(View.VISIBLE);
             textViewErrorLogin.setVisibility(View.INVISIBLE);
-
-
         }
 
         @Override

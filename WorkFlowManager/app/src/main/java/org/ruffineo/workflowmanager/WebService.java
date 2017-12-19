@@ -45,7 +45,7 @@ public class WebService {
                     respuesta.setReferencia("Retorno respuesta vacia.");
                 }
             } else {
-                respuesta.setReferencia("Respuesta vacia al invocar el WS.");
+                respuesta.setReferencia("Respuesta con timeout al invocar el WS.");
             }
         } catch (IOException e) {
             respuesta.setReferencia("No se pudo conectar al servidor.");
